@@ -1,8 +1,27 @@
 // Chapter styles
 // ==============
 
-.chapter {
-  margin-top: 10vh;
+.chapter-section {
   width: 100%;
   max-width: columns(7);
+  margin: units(3) auto;
+
+  >h1 {
+    @include font-size(3);
+    color: $red;
+    margin: 0;
+    text-align: center;
+  }
+
+  article {
+    margin-top: units(3);
+
+    p {
+      @include font-size(1);
+    }
+
+    p + p {
+      margin-top: units(1);
+    }
+  }
 }
