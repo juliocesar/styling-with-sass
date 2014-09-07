@@ -1,0 +1,12 @@
+// Home footer
+// ===========
+
+.home-footer {
+  width: 100%;
+  max-width: columns(7);
+  margin: units(3) auto 0;
+
+  p {
+    @include font-size(1);
+  }
+}
