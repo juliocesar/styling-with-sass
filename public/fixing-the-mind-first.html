@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>Fixing the mind first ― Styling with Sass</title>
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="//cloud.typography.com/6225112/658766/css/fonts.css" />
+    <link rel="stylesheet" href="stylesheets/manifest.css">
+  </head>
+  <body>
+    <section class="chapter-section">
+      <h1>
+        Fixing the mind first
+      </h1>
+      <article>
+        <p>
+          What most hate, perhaps without even knowing, is not CSS per se, but non-systematic styling. It leads to all the grief developers and designers frequently experience. Non-systematic styling means, in short, thoughtlessly adding directives until the thing looks as intended.
+        </p>
+      </article>
+      <article>
+        <p>
+          A crop of strategies exist for addressing almost every styling problem under the sun. The problem then becomes understanding these strategies well (and some are very complex), which, best case scenario, will make you good at said strategy, while keeping you oblivious to the exact problems you’re dealing with. <strong>For no other part of the front-end stack this is truer than CSS</strong>. And for no other part of the stack, raw understanding will do more for you than any methodology ever will.
+        </p>
+        <p>
+          Understanding takes a little extra work initially, and next to nothing in the medium and long term, since understanding then expands by itself. Applying a methodology without giving the problem any consideration invariably results in a constant game of exceptions due to what you remember versus what you forget to apply.
+        </p>
+      </article>
+      <article>
+        <p>
+          Directives-based programming, or configuring if you will, means every single “command” does a lot, which is unlike most programming languages. So things can get out of hand a lot more quickly. Directives that have implications beyond just the element they’re applied to (e.g.: display block vs inline-block) need to be carefully thought of and well understood.
+        </p>
+      </article>
+      <article>
+        <p>
+          <strong>It’s possible to use just CSS for doing this</strong>, if you agree to simply follow these rules by ear and do your calculations outside of your build process. Obviously, that’d be laborious, but the fact remains.
+        </p>
+        <p>
+          You can also implement all the rules explained in here using any other preprocessor. The science isn’t bound to Sass in any way.
+        </p>
+      </article>
+      <article>
+        <p>
+          We will write a lot of stuff from scratch, for which there are alternatives out there. The reason for that is <strong>none</strong> of the problems we’re trying to solve are hard by any stretch of the imagination. What makes them appear hard is the fact you may not have invested enough time in understanding and embracing these problems. But fear not, for this is a much shorter road than you’d think.
+        </p>
+      </article>
+      <article>
+        <p>
+          Tooling correctly will assist you in getting there faster. You should have <a href="https://github.com/postcss/autoprefixer">autoprefixer</a>, and a way to compile Sass at your disposal. The former will allow you to write code without worrying about vendor prefixes, but more importantly, it unifies discrepant syntaxes such as gradients and flexbox. That is, you will write directive in the most current, standard way and it’ll output, alongside the original one, code that ensures it works in browsers that haven’t yet adopted the standard syntax.
+        </p>
+      </article>
+      <article>
+        <p>
+          Browser coverage for this booklet is IE9+, and Android 4+ (your mileage will vary, wildly, because no one can predict Android). Much of it will just work in IE8 by dropping in polyfills such as <a href="http://selectivizr.com/">selectivizr</a>.
+        </p>
+      </article>
+      <article>
+        <p>
+          Every chapter will yield one or more modules (or SCSS files), which you’re welcome to download first thing so you can use them before you jump into any actual reading.
+        </p>
+      </article>
+    </section>
+  </body>
+</html>
