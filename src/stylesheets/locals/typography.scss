@@ -14,18 +14,8 @@
 // }
 
 @mixin default-font($weight) {
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, sans-serif;
-
-  @if $weight == 'regular' {
-    font-weight: 300;
-  } @else if $weight == 'bold' {
-    font-weight: 700;
-  }
-}
-
-@mixin heading-font($weight) {
-  font-family: "Roboto Condensed", sans-serif;
-  text-transform: uppercase;
+  font-family: 'Tungsten Rounded A', 'Tungsten Rounded B';
+  font-style: normal;
 
   @if $weight == 'regular' {
     font-weight: 400;

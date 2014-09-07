@@ -3,22 +3,21 @@
 
 .toc-section {
   .chapter-list {
-    width: 700px;
-    margin: 3rem auto 0;
-    font-size: $regular-font-size;
+    width: columns(5);
+    margin: units(3) auto 0;
     list-style: none;
 
-    .chapter-entry {
-      margin-top: $regular-font-size/2;
-    }
+    li {
+      @include font-size(2);
+      text-align: left;
 
-    em {
-      display: inline-block;
-      width: 50%;
-      font-weight: bold;
-      font-size: $large-font-size;
-      font-style: normal;
-      text-align: right;
+      strong {
+        display: inline-block;
+        font-size: font-scale(3);
+        padding-right: units(.5);
+        width: 50%;
+        text-align: right;
+      }
     }
   }
 }

@@ -54,15 +54,14 @@ $displays: (
   @return round($font-size * pow($scale, $x));
 }
 
-// This replaces direct uses of $spacing (which we had until recently), like
-// $spacing*3 and so on. From now on, use spacing(3).
-@function spacing($x, $size: 'medium') {
+// Yields a grid unit of space.
+@function units($x, $size: 'medium') {
   $display: map-get($displays, $size);
   @return map-get($display, 'unit') * $x;
 }
 
 @function columns($x, $size: 'medium') {
-  @return spacing(4, $size) * $x;
+  @return units(4, $size) * $x;
 }
 
 // A helper for setting an appropriate font size and line-height for it.

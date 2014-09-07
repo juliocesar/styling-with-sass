@@ -2,15 +2,7 @@
 // ==============
 
 .chapter {
-  margin-top: $spacing*3;
-  width: 700px;
-  font-size: 1rem
-
-  h1 {
-    font-size: 1.4rem
-  }
-
-  p {
-    line-height: 1.4;
-  }
+  margin-top: 10vh;
+  width: 100%;
+  max-width: columns(7);
 }
