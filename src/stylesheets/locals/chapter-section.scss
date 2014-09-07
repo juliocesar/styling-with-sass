@@ -1,0 +1,38 @@
+// Chapter styles
+// ==============
+
+.chapter-section {
+  width: 100%;
+  max-width: columns(7);
+  margin: columns(1) auto;
+
+  >h1 {
+    @include font-size(3);
+    color: $red;
+    margin: 0;
+    text-align: center;
+  }
+
+  article {
+    &:first-of-type {
+      margin-top: columns(1);
+    }
+
+    p {
+      @include font-size(1);
+    }
+
+    p + p {
+      margin-top: units(1);
+    }
+  }
+
+  article + article:before {
+    display: block;
+    height: units(1);
+    margin: units(2) auto units(2);
+    content: '';
+    background: url(/images/separator.svg) no-repeat center;
+    background-size: contain;
+  }
+}
