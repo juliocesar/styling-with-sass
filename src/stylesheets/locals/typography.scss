@@ -20,7 +20,7 @@
   @if $weight == 'regular' {
     font-weight: 400;
   } @else if $weight == 'bold' {
-    font-weight: 700;
+    font-weight: 600;
   }
 }
 
