@@ -66,7 +66,9 @@ gulp.task('deploy', shell.task([
   'git checkout gh-pages',
   'git checkout master -- public',
   'cp -r public/* .',
-  'git commit -m "Deployment"'
+  'git commit -am "Deployment"',
+  'git push origin gh-pages',
+  'git checkout master'
 ]));
 
 // ---
