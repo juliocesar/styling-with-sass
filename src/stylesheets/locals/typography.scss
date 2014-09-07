@@ -14,23 +14,13 @@
 // }
 
 @mixin default-font($weight) {
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, sans-serif;
+  font-family: 'Verlag Cond A', 'Verlag Cond B';
+  font-style: normal;
 
-  @if $weight == 'regular' {
+  @if $weight == regular {
     font-weight: 300;
-  } @else if $weight == 'bold' {
-    font-weight: 700;
-  }
-}
-
-@mixin heading-font($weight) {
-  font-family: "Roboto Condensed", sans-serif;
-  text-transform: uppercase;
-
-  @if $weight == 'regular' {
-    font-weight: 400;
-  } @else if $weight == 'bold' {
-    font-weight: 700;
+  } @else if $weight == bold {
+    font-weight: 800;
   }
 }
 

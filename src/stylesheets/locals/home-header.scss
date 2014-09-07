@@ -2,37 +2,24 @@
 // ================
 
 .home-header {
-  @include breakpoint(small) {
-    margin: 50px 0 0;
-  }
-  margin: 150px auto 0;
+  margin: units(3) auto 0;
   text-align: center;
 
+  .title,
+  .sass-logo {
+    display: inline-block;
+    height: columns(2);
+    vertical-align: top;
+  }
+
   .title {
-    @include breakpoint(small) {
-      font-size: 1.9rem;
-    }
-    margin: $spacing*2 0 0;
-    font-size: 2.9rem;
+    font-size: font-scale(4);
+    line-height: columns(2);
+    margin: 0;
     color: $red;
   }
 
-  .subtitle {
-    @include breakpoint(small) {
-      font-size: .8rem;
-    }
-    display: inline-block;
-    position: relative;
-    margin: $spacing*3 0 0;
-    font-size: 2.3rem;
-    font-weight: normal;
-    background: $black;
-    color: $white;
-    padding: $spacing/2 $spacing;
-    border-radius: 3px;
+  .sass-logo {
+    margin-left: units(1);
   }
-}
-
-.sass-logo {
-  width: 300px;
 }
