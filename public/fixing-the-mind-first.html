@@ -17,20 +17,15 @@
       </h1>
       <article>
         <p>
-          You don’t hate CSS. You hate, maybe without even knowing, non-systematic styling. This leads to all the grief everyone frequently experiences. Non-systematic styling means thoughtlessly adding directives until the thing looks as intended.
+          You don’t hate CSS. You hate, maybe without even knowing, non-systematic styling. It leads to all the grief everyone frequently experiences. Non-systematic styling means thoughtlessly adding directives until the thing looks as intended.
         </p>
       </article>
       <article>
         <p>
-          Understanding takes a little extra work initially, and next to nothing in the medium and long term, since it grows by itself. Applying a methodology is a constant game of exceptions due to what you remember and what you forget…
+          A crop of strategies exists to address almost every styling problem under the sun. The problem then becomes understanding these strategies well (as some are very complex), which, best case scenario, will make you good at said strategy, while keeping you oblivious to the exact problems you’re dealing with. <strong>For no other part of the front-end stack this is truer than CSS</strong>. And for no other part of the stack, raw understanding will do more for you than any methodology ever will.
         </p>
         <p>
-          Concede to the possibility that you don’t know something as you learn it, and only then you will succeed at that. Try your best to retain a dose of that openness even after nothing seems to be an obstacle.
-        </p>
-      </article>
-      <article>
-        <p>
-          Imagine if building an interface consisted simply of writing a bit of structured text, and in order to style it and make it capable of reacting to almost any change in circumstance, we could describe how this behaviour works in plain English. This is HTML/CSS. The premise isn’t in the slightest flawed. The implementation, until recently, left a lot to be desired. **Until recently**.
+          Understanding takes a little extra work initially, and next to nothing in the medium and long term, since understanding expands by itself. Applying a methodology without giving the problem any consideration invariably results in a constant game of exceptions due to what you remember versus what you forget to apply.
         </p>
       </article>
       <article>
@@ -40,27 +35,25 @@
       </article>
       <article>
         <p>
-          A crop of strategies exists to address almost every styling problem under the sun. The problem then becomes understanding these strategies well (as some are very complex), which makes most people good at said strategy, best case scenario, while remaining oblivious to the exact problems they’re dealing with. **For no other part of the front-end stack, this is truest than CSS**. And for no other part of the stack, raw understanding will do more for you than any methodology ever will.
+          <strong>It’s possible to use just CSS for doing this</strong>, if you agree to simply follow these rules by ear and do your calculations outside of your build process. Obviously, that’d be laborious, but the fact remains.
+        </p>
+        <p>
+          You can also implement all the rules explained in here using any other preprocessor. The science isn’t bound to Sass in any way.
         </p>
       </article>
       <article>
         <p>
-          While it’s possible to use just CSS for doing this, SASS goes so well with creating a UI system that it’d be stupid, from that point of view, not to use it. SASS however has a lot of features, but the good news is you’ll need less than half of them to be effective at it.
+          We will write a lot of stuff from scratch, for which there are alternatives out there. The reason for that is <strong>none</strong> of the problems we’re trying to solve are hard by any stretch of the imagination. What makes them appear hard is the fact you may not have invested enough time in understanding and embracing these problems. But fear not, for this is a much shorter road than you’d think.
         </p>
       </article>
       <article>
         <p>
-          We will write a lot of stuff from scratch, for which there are alternatives out there. The reason for that is **none** of the problems we’re trying to solve are hard by any stretch of the imagination. What makes them appear hard is the fact you may not have invested enough time in understanding and embracing these problems. But fear not, for this is a much shorter road than you’d think.
+          Tooling correctly will assist you in getting there faster. You should have <a href="https://github.com/postcss/autoprefixer">autoprefixer</a>, and a way to compile SASS at your disposal. The former will allow you to write code without worrying about vendor prefixes, but more importantly, it unifies discrepant syntaxes such as gradients and flexbox. That is, you will write directive in the most current, standard way and it’ll output, alongside the original one, code that ensures it works in browsers that haven’t yet adopted the standard syntax.
         </p>
       </article>
       <article>
         <p>
-          Tooling *correctly* will assist you in getting there faster. You should have autoprefixer, and a way to compile SASS at your disposal. The former will allow you to write code without worrying about vendor prefixes, but more importantly, it unifies discrepant syntaxes such as gradients and flexbox. That is, you will write directive in the most current, standard way and it’ll output, alongside the original one, code that ensures it works in browsers that haven’t **yet** adopted the standard syntax.
-        </p>
-      </article>
-      <article>
-        <p>
-          Browser coverage for this booklet is IE9+, and Android 4+ (YMMV). Much of it will just work in IE8 by dropping in polyfills such as selectivizr.
+          Browser coverage for this booklet is IE9+, and Android 4+ (your mileage will vary, wildly, because no one can predict Android). Much of it will just work in IE8 by dropping in polyfills such as <a href="http://selectivizr.com/">selectivizr</a>.
         </p>
       </article>
       <article>
