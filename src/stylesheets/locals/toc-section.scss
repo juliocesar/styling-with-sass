@@ -11,6 +11,11 @@
       @include font-size(2);
       text-align: left;
 
+      &.upcoming {
+        opacity: .5;
+        pointer-events: none;
+      }
+
       strong {
         display: inline-block;
         font-size: font-scale(3);
