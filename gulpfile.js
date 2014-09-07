@@ -59,6 +59,18 @@ gulp.task('serve', function() {
 });
 // ---
 
+// Deployment.
+var shell = require('gulp-shell');
+
+gulp.task('deploy', shell.task([
+  'git checkout gh-pages',
+  'git checkout master -- public',
+  'cp -r public/* .',
+  'git commit -m "Deployment"'
+]));
+
+// ---
+
 // Watch.
 gulp.task('watch', function() {
   gulp.watch(Config.srcDir + '/stylesheets/**', ['autoprefixer']);
