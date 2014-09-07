@@ -7,6 +7,6 @@
   margin: units(3) auto 0;
 
   p {
-    @include font-size(1);
+    @include font-size(0);
   }
 }
