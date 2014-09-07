@@ -1,0 +1,5 @@
+.ruby-version
+.sass-cache
+node_modules
+public/stylesheets
+public/javascript
