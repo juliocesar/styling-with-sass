@@ -14,13 +14,13 @@
 // }
 
 @mixin default-font($weight) {
-  font-family: 'Tungsten Rounded A', 'Tungsten Rounded B';
+  font-family: 'Verlag Cond A', 'Verlag Cond B';
   font-style: normal;
 
   @if $weight == 'regular' {
     font-weight: 400;
   } @else if $weight == 'bold' {
-    font-weight: 600;
+    font-weight: 800;
   }
 }
 
