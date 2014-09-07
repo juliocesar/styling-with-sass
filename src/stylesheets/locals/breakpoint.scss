@@ -1,0 +1,28 @@
+// Media queries breakpoints
+// =========================
+//
+// Usage:
+//
+// .component-name {
+//   width: 45%
+//
+//   @include breakpoint(small) {
+//     width: 100%;
+//   }
+// }
+
+@mixin breakpoint($point) {
+  @if $point == small {
+    @media all and (max-width: columns(5)) {
+      @content
+    }
+  } @else if $point == medium {
+    @media all and (max-width: columns(8)) {
+      @content
+    }
+  } @else {
+    @media all and (max-width: $point) {
+      @content
+    }
+  }
+}

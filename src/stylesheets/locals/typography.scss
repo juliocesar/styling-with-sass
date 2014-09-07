@@ -1,0 +1,48 @@
+// Typesetting and font sizes
+// ==========================
+//
+// This module does two things: provides a mixin for setting the font family
+// along with the correct weight value, as well as resetting the default
+// body and code fonts to it.
+//
+// Example:
+//
+// .component-name {
+//   em {
+//     @include default-font(bold);
+//   }
+// }
+
+@mixin default-font($weight) {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, sans-serif;
+
+  @if $weight == 'regular' {
+    font-weight: 300;
+  } @else if $weight == 'bold' {
+    font-weight: 700;
+  }
+}
+
+@mixin heading-font($weight) {
+  font-family: "Roboto Condensed", sans-serif;
+  text-transform: uppercase;
+
+  @if $weight == 'regular' {
+    font-weight: 400;
+  } @else if $weight == 'bold' {
+    font-weight: 700;
+  }
+}
+
+@mixin code-font {
+  font-family: Consolas, Monaco, 'Andale Mono', monospace;
+}
+
+body {
+  @include default-font(regular);
+  font-size: font-scale(0);
+}
+
+code {
+  @include code-font;
+}

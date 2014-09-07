@@ -1,0 +1,24 @@
+// Table of contents
+// =================
+
+.toc-section {
+  .chapter-list {
+    width: 700px;
+    margin: 3rem auto 0;
+    font-size: $regular-font-size;
+    list-style: none;
+
+    .chapter-entry {
+      margin-top: $regular-font-size/2;
+    }
+
+    em {
+      display: inline-block;
+      width: 50%;
+      font-weight: bold;
+      font-size: $large-font-size;
+      font-style: normal;
+      text-align: right;
+    }
+  }
+}
