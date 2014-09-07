@@ -1,7 +1,7 @@
 Styling with Sass
 =================
 
-See it live at [styling-with-sass.github.io](http://styling-with-sass.github.io).
+See it live at [juliocesar.github.io/styling-with-sass/](http://juliocesar.github.io/styling-with-sass/).
 
 ## Problems? Addendums?
 
