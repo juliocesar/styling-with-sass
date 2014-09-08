@@ -125,75 +125,78 @@ for height and width.
 
 (This doesn't mean you'll need to go around setting the height of everything, to be clear. If a section has text inside and it needs to grow as tall as necessary to accomodate all text, that'll happen naturally as you add text that's correctly sized to it)
 
-What I'm describing here is the same approach explained in [Gridlover]. Gridlover is a nice tool for generating a scale which you can copy and paste into your styles. If you're not familiar, I suggest you go play with it and fiddle with the values a little. This will help clarifying the concepts explained thus far.
+What I'm describing here is the same approach explained in [Gridlover]. Gridlover is a nice tool for generating a scale which you can copy and paste into your styles. If you're not familiar, go play with it and fiddle with the values a little. This will help clarifying the concepts explained thus far.
 
-Let's start by setting the base font size:
+What will likely happen is you will have 3 scales: one for small displays, one for medium, and one for large displays. When we address responsiveness later on in this booklet, we will go through the use of the first and last scales. For now, know that the functions and mixins coming next will default to using the medium setting.
 
-    $base-font-size: 16px;
+    $displays: (
+      small: (
+        font-size: 14px,
+        unit: 15px * 1.3,
+        scale: 1.25
+      ),
+      medium: (
+        font-size: 18px,
+        unit: 18px * 1.3,
+        scale: 1.3
+      ),
+      large: (
+        font-size: 20px,
+        unit: 20px * 1.5,
+        scale: 1.4
+      )
+    );
 
-And then the base line height:
+The above is a [Sass map](http://www.sitepoint.com/using-sass-maps/). Think of it as a database where we put the scales mentioned before.
 
-    $base-line-height: $base-font-size * 1.5;
+Now comes the actual calculations and functions. I'm using a `pow()` function taken from [Sassmeister](http://sassmeister.com/gist/10620fefd1ed75189f1b), which I found via an article by [James Steinbach](http://sitepoint.com/using-sass-build-custom-type-scale-vertical-rhythm/), on this same topic of vertical rhythm. So I won't repeat it here.
 
-For text to correctly grow and always match the scale, it needs to grow by, well,
-a scale. The scale is the exponential value by which text grows. So a scale of 2,
-for instance, means text grows by twice its value every step of the scale. For
-obvious reasons, that'd be a terrible idea.
+The first function we'll write is one that'll use the variables above to output size values we can use in directives:
 
-    $base-scale: 1.3;
-
-Now comes the actual calculations and functions. I'm using a `pow()` function
-taken from [Sassmeister](http://sassmeister.com/gist/10620fefd1ed75189f1b),
-which I found linked from an article by [James Steinbach](http://sitepoint.com/using-sass-build-custom-type-scale-vertical-rhythm/),
-on this same topic of vertical rhythm. So I won't repeat it here.
-
-The first function we'll write is one that'll use the variables above to output
-size values we can use in directives:
-
-    @function font-scale($x) {
-      @return round($base-font-size * pow($base-scale, $x));
+    @function font-scale($x, $size: 'medium') {
+      $display:     map-get($displays, $size);
+      $scale:       map-get($display, 'scale');
+      $font-size:   map-get($display, 'font-size');
+      @return round($font-size * pow($scale, $x));
     }
 
 We'll almost never use this directly.
 
-Next comes a function for outputting a spacing that conforms with the grid, which
-we'll use for paddings, margins, widths and heights when set to a fixed value.
+Next comes a function for outputting a spacing that conforms with the grid, which we'll use for paddings, margins, widths and heights when set to a fixed value.
 
-    @function spacing($x) {
-      @return $base-unit * $x;
+    @function units($x, $size: 'medium') {
+      $display: map-get($displays, $size);
+      @return map-get($display, 'unit') * $x;
     }
 
-In keeping with the lingo, as well as to avoid ridiculously high values of
-`spacing()` which will end up not meaning much, this is a helper for outputting
-a column width. The convention this sets is that a column width is 4 units. You
-could potentially keep this in a variable outside of this method, for ease of
+In keeping with the lingo, as well as to avoid ridiculously high values of `spacing()` which will end up not meaning much, this is a helper for outputting a column width. The convention this sets is that a column width is 4 units. You could potentially keep this in a variable outside of this method, for ease of
 configuration.
 
-    @function columns($x) {
-      @return spacing(4) * $x;
+    @function columns($x, $size: 'medium') {
+      @return units(4, $size) * $x;
     }
 
 And finally, we need a helper for making it easy to set font sizes that come
 with a correct line height value:
 
-    @mixin font-size($units) {
-      $lh: spacings(1);
-      @while $lh < font-scale($units) {
-        $lh: $lh + spacings(1);
+    @mixin font-size($units, $size: 'medium') {
+      $display: map-get($displays, $size);
+      $unit:    map-get($display, 'unit');
+      $lh:      $unit;
+
+      @while $lh < font-scale($units, $size) {
+        $lh: $lh + $unit;
       }
-      font-size: font-scale($units);
+
+      font-size: font-scale($units, $size);
       line-height: $lh;
     }
 
 To briefly explain what happened in the function above, in order:
 
-1) We set a `$lh` variable (short for line height) which will act as a return
-value for the function, to one unit. So the minimum valid height for any line
-height this helper outputs will always be that.
-2) In a `@while` loop, we increment `$lh` by one unit until it can accommodate
-the height of `font-scale()`.
-3) We then output a `font-size` and a `line-height` directives with the generated
-values.
+1) We set a `$lh` variable (short for line height) which will act as a return value for the function, to one unit. So the minimum valid height for any line height this helper outputs will always be that.
+2) In a `@while` loop, we increment `$lh` by one unit until it can accommodate the height of `font-scale()`.
+3) We then output a `font-size` and a `line-height` directives with the generated values.
 
 Throughout this booklet we'll be using this directive for sizing text all over.
 
