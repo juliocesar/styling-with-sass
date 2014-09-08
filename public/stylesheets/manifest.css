@@ -374,7 +374,7 @@ body {
   font-family: 'Verlag Cond A', 'Verlag Cond B';
   font-style: normal;
   font-weight: 300;
-  font-size: 16px; }
+  font-size: 18px; }
 
 code {
   font-family: Consolas, Monaco, 'Andale Mono', monospace; }
@@ -384,68 +384,68 @@ a {
   color: #e0434e; }
 
 .home-header {
-  margin: 48px auto 0;
+  margin: 54px auto 0;
   text-align: center; }
   .home-header .title,
   .home-header .sass-logo {
     display: inline-block;
-    height: 192px;
+    height: 216px;
     vertical-align: top; }
   .home-header .title {
-    font-size: 46px;
-    line-height: 192px;
+    font-size: 51px;
+    line-height: 216px;
     margin: 0;
     color: #e0434e; }
   .home-header .sass-logo {
-    margin-left: 24px; }
+    margin-left: 27px; }
 
 .home-footer {
   width: 100%;
-  max-width: 672px;
-  margin: 48px auto 0; }
+  max-width: 756px;
+  margin: 54px auto 0; }
   .home-footer p {
-    font-size: 16px;
-    line-height: 24px; }
+    font-size: 18px;
+    line-height: 27px; }
 
 .toc-section .chapter-list {
-  width: 480px;
-  margin: 48px auto 0;
+  width: 540px;
+  margin: 54px auto 0;
   list-style: none; }
   .toc-section .chapter-list li {
-    font-size: 27px;
-    line-height: 48px;
+    font-size: 30px;
+    line-height: 54px;
     text-align: left; }
     .toc-section .chapter-list li.upcoming {
       opacity: .5;
       pointer-events: none; }
     .toc-section .chapter-list li strong {
       display: inline-block;
-      font-size: 35px;
-      padding-right: 12px;
-      width: 192px;
+      font-size: 40px;
+      padding-right: 13.5px;
+      width: 216px;
       text-align: right; }
 
 .chapter-section {
   width: 100%;
-  max-width: 672px;
-  margin: 96px auto; }
+  max-width: 756px;
+  margin: 108px auto; }
   .chapter-section > h1 {
-    font-size: 35px;
-    line-height: 48px;
+    font-size: 40px;
+    line-height: 54px;
     color: #e0434e;
     margin: 0;
     text-align: center; }
   .chapter-section article:first-of-type {
-    margin-top: 96px; }
+    margin-top: 108px; }
   .chapter-section article p {
-    font-size: 21px;
-    line-height: 24px; }
+    font-size: 23px;
+    line-height: 27px; }
   .chapter-section article p + p {
-    margin-top: 24px; }
+    margin-top: 27px; }
   .chapter-section article + article:before {
     display: block;
-    height: 24px;
-    margin: 48px auto 48px;
+    height: 27px;
+    margin: 54px auto 54px;
     content: '';
     background: url(../images/separator.svg) no-repeat center;
     background-size: contain; }

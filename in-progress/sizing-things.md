@@ -8,7 +8,7 @@ Sizing text and blocks, although distinct challenges with their own particulars,
 
 A grid's main function is to define the steps that any element can grow or be positioned into. In saying the word "grid", it immediately comes to mind the idea of columns, but a column is really just a helper for understanding the fact that you are in reality putting things in a map.
 
-Think of a chessboard. The grid is composed by squares, and you can only move one square, or many, or half (that's unlike chess, generally not recommended, but technically within proportion), but never by 77% of a unit, or another non-proportional measure.
+Think of a chessboard. The grid is composed by squares, and you can only move one square, or many, or half (that's unlike chess, generally not recommended, but technically within proportion), but never by 77% of a unit, or another non-proportional measure. Alternatively, if you're a musician, you can think of when you're trying to fit drum beats in a compass (explain here).
 
 Creativity wants freedom. And these constraints can come across as being opposed to that, but in fact they're there to assist you with keeping proportion, a key element of aesthetics, and thus, good design. In short: using a grid helps making things look right on the screen.
 
@@ -59,7 +59,7 @@ aside {
 
 (In short, you're actually saying "130%", "110%", and "80%" of the container's font size. For clarity sake, *you may as well just use percentages*, since those take no decyphering)
 
-Now picture what happens in a web app scenario with multiple nested components. Granted, this is ems in misuse, and this doesn't mean ems are a bad idea. But they carry tooling with them, so they're ideal for on-the-spot proportional measures, which don't fit the vision that you're learning in this booklet. We operate through a scale, and the scale is the source of all correct sizes. Hence, inventing proportions on the spot is, in this instance, wrong.
+Now picture what happens in a web app scenario with multiple nested components. Granted, this is ems in misuse, and the point is not that ems are a bad idea. But they carry tooling with them, so they're ideal for on-the-spot proportional measures, which don't fit the vision that you're learning in this booklet. We operate through a scale, and the scale is the source of all correct sizes. Hence, inventing proportions on the spot is, in this instance, wrong.
 
 Last, it's worth mentioning viewport relative units, which are also tooling units that can come in handy. Setting a wrapper's width/height to a percentual value achieves one thing: it sets it to the *width of the parent*. Yes, the *width*. Browsers won't figure that when you say `height: 50%` you probably mean 50% of the height of the parent.
 
@@ -75,9 +75,7 @@ Every time someone suggests a field needs to be nudged to a direction by one pix
 
 A grid has **units**. Things should fit nicely inside these units, including text. When upsizing a font, you upsize it with a scale, so your options are simple: you can move the font size up or down the scale (similarly to dragging the size number bars in Gridlovr), and the scale, which we will implement with a SASS function, will output a pixel value. In short, there'll be font size 0, 1, 2, 3, or X until it's too large, but you won't ever again pick a font size that just "looks right" by trial and error.
 
-Similarly, block elements that have fixed, or maximum/minimum, dimensions will
-be sized by a `units()` function. So instead of setting a fixed number of, say, pixels to
-a container, it'll be like this:
+Similarly, block elements that have fixed, or maximum/minimum, dimensions will be sized by a `units()` function. So instead of setting a fixed number of, say, pixels to a container, it'll be like this:
 
     .a-container {
       max-width: units(6);
@@ -85,8 +83,7 @@ a container, it'll be like this:
 
 ###
 
-A text node's height is not determined by the `font-size` directive per se. That will be
-taken into consideration, but it's in fact the `line-height` that will. Sure, you **can** set the `height` if you also declare the node is a block node via `display: inline-block` and then that will be its height, but it'll make for some tall text nodes that are just weird. CSS is flexible and it'll let you do stupid things. That in fact is one of the main problems with it. It's up to you to make sure that flexibility is put to good use.
+A text node's height is not determined by the `font-size` directive per se. That will be taken into consideration, but it's in fact the `line-height` that will. Sure, you **can** set the `height` if you also declare the node is a block node via `display: inline-block` and then that will be its height, but it'll make for some tall text nodes that are just weird. CSS is flexible and it'll let you do stupid things. That in fact is one of the main problems with it. It's up to you to make sure that flexibility is put to good use.
 
 See this:
 
@@ -100,8 +97,7 @@ If you inspect the paragraph using your browser's developer tools, you'll see th
 
 There's nothing technically incorrect in styling things like this, by the way, if the grid unit size is in fact `24px`. But what comes with setting things like `line-height` using per-selector proportional measures such as the unitless number above is people end up setting it to something that may look ok but is incorrect as far as the grid goes. And then another paragraph elsewhere gets a `line-height: 1.3` directive, because it "looks ok". And soon enough the design is full of holes.
 
-Text is always positioned in the centre of the line. So if you want to vertically
-align a text node, simply give its line height the same height of the container:
+Text is always positioned in the centre of the line. So if you want to vertically center a text node, simply give its line height the same height of the container:
 
     .cube {
       height: 320px;
@@ -127,15 +123,9 @@ one line to accomodate it.
 for height and width.
 * Padding and margin values will also be specified in units.
 
-(This doesn't mean you'll need to go around setting the height of everything, to
-be clear. If a section has text inside and it needs to grow as tall as necessary
-to accomodate all text, that'll happen naturally as you add text that's correctly
-sized to it)
+(This doesn't mean you'll need to go around setting the height of everything, to be clear. If a section has text inside and it needs to grow as tall as necessary to accomodate all text, that'll happen naturally as you add text that's correctly sized to it)
 
-What I'm describing here is the same approach explained in [Gridlover]. Gridlover
-is a nice tool for generating a scale which you can copy and paste into your
-styles. If you're not familiar, I suggest you go play with it and fiddle with
-the values a little. This will help clarifying the concepts explained thus far.
+What I'm describing here is the same approach explained in [Gridlover]. Gridlover is a nice tool for generating a scale which you can copy and paste into your styles. If you're not familiar, I suggest you go play with it and fiddle with the values a little. This will help clarifying the concepts explained thus far.
 
 Let's start by setting the base font size:
 
