@@ -17,7 +17,7 @@
       </h1>
       <article>
         <p>
-          Sizing text and blocks, although distinct challenges with their own particulars, in order for correctness to be retained and for things to stay as easy as possible to use, a mechanism is necessary for implementing a grid. That mechanism should be unobtrusive as possible, rather than something to be learned or turn into a reference one needs to constantly look at. Therefore, the API surface should be very small.
+          Sizing text and blocks, although distinct challenges with their own particulars, in order for correctness to be retained and for things to stay as easy as possible to use, a mechanism is necessary for implementing a grid. That mechanism should be unobtrusive, rather than something that turns into a reference one needs to constantly look at. Therefore, the API surface should be very small.
         </p>
         <p>
           A grid's main function is to define the steps that any element can grow or be positioned into. In saying the word "grid", it immediately comes to mind the idea of columns, but a column is really just a helper for understanding the fact that you are in reality putting things in a map.
@@ -152,16 +152,13 @@
         </p>
         <ul>
           <li>
-            The base `line-height` value is 1 unit, whatever we decide the unit size should
-be.
+            The base `line-height` value is 1 unit, whatever we decide the unit size should be.
           </li>
           <li>
-            Text can obviously be bigger than 1 unit, but in which case it'll take more than
-one line to accomodate it.
+            Text can obviously be bigger than 1 unit, but in which case it'll take more than one line to accomodate it.
           </li>
           <li>
-            The dimensions of blocks (or anything that's not text) will always be X units
-for height and width.
+            The dimensions of blocks (or anything that's not text) will always be X units for height and width, when having fixed dimensions.
           </li>
           <li>
             Padding and margin values will also be specified in units.
@@ -171,9 +168,200 @@ for height and width.
           (This doesn't mean you'll need to go around setting the height of everything, to be clear. If a section has text inside and it needs to grow as tall as necessary to accomodate all text, that'll happen naturally as you add text that's correctly sized to it)
         </p>
         <p>
-          What I'm describing here is the same approach explained in [Gridlover]. Gridlover is a nice tool for generating a scale which you can copy and paste into your styles. If you're not familiar, I suggest you go play with it and fiddle with the values a little. This will help clarifying the concepts explained thus far.
+          What I'm describing here is the same approach explained in <a href="http://www.gridlover.net/">Gridlover</a>. Gridlover is a nice tool for generating a scale which you can copy and paste into your styles. If you're not familiar, go play with it and fiddle with the values a little. This will help clarifying the concepts explained thus far.
         </p>
+        <p>
+          What will likely happen is you will have 3 scales: one for small displays, one for medium, and one for large displays. When we address responsiveness later on in this booklet, we will go through the use of the first and last scales. For now, know that the functions and mixins coming next will default to using the medium setting.
+        </p>
+        <pre><code>$displays: (
+  small: (
+    font-size: 14px,
+    unit: 15px * 1.3,
+    scale: 1.25
+  ),
+  medium: (
+    font-size: 18px,
+    unit: 18px * 1.3,
+    scale: 1.3
+  ),
+  large: (
+    font-size: 20px,
+    unit: 20px * 1.5,
+    scale: 1.4
+  )
+);</code></pre>
+        <p>
+          The above is a <a href="http://www.sitepoint.com/using-sass-maps/">Sass map</a>. Think of it as a database where we put the scales mentioned before.
+        </p>
+        <p>
+          Now comes the actual calculations and functions. I'm using a `pow()` function taken from <a href="http://sassmeister.com/gist/10620fefd1ed75189f1b">Sassmeister</a>, which I found via an article by <a href="http://sitepoint.com/using-sass-build-custom-type-scale-vertical-rhythm/">James Steinbach</a>, on this same topic of vertical rhythm. So I won't repeat it here.
+        </p>
+        <p>
+          The first function we'll write is one that'll use the scale above to output values we can use in directives:
+        </p>
+        <pre><code>@function font-scale($x, $size: 'medium') {
+  $display:     map-get($displays, $size);
+  $scale:       map-get($display, 'scale');
+  $font-size:   map-get($display, 'font-size');
+  @return round($font-size * pow($scale, $x));
+};</code></pre>
+        <p>
+          The parameter should always be an integer, and it can be smaller, equal, or greater than zero. Technically it's possible to use a fraction, and it's not incorrect so long as the font remains within the bounds of the line height, but you should instead rely on a `scale` value that allows for as much granularity as possible.
+        </p>
+        <p>
+          An example of manually setting the font size with the function above:
+        </p>
+        <pre><code>.welcome-heading {
+  font-size: font-scale(1);
+  line-height: units(2);
+};</code></pre>
+        <p>
+          Next comes a function for outputting a unit that conforms with the grid, which we'll use for paddings, margins, widths and (line) heights when set to a fixed value.
+        </p>
+        <pre><code>@function units($x, $size: 'medium') {
+  $display: map-get($displays, $size);
+  @return map-get($display, 'unit') * $x;
+};</code></pre>
+        <p>
+          Example:
+        </p>
+        <pre><code>.container {
+  padding: units(1);
+  width: units(8);
+};</code></pre>
+        <p>
+          In keeping with the lingo, and to avoid ridiculously high values of `units()` which will end up not meaning much, `column()` outputs a column width. The convention this sets is that a column width is 4 units. You could potentially keep this in a variable outside of this method.
+        </p>
+        <pre><code>@function columns($x, $size: 'medium') {
+  @return units(4, $size) * $x;
+}</code></pre>
+        <p>
+          Example:
+        </p>
+    <pre><code>.container {
+  padding: units(1);
+  width: columns(2);
+}</code></pre>
+        <p>
+          And finally, a mixin for making it easy to set font sizes that come with a correct line height value. This maps directly to the result you get from dragging the scale value in Gridlover:
+        </p>
+        <pre><code>@mixin font-size($units, $size: 'medium') {
+  $display: map-get($displays, $size);
+  $unit:    map-get($display, 'unit');
+  $lh:      $unit;
 
+  @while $lh < font-scale($units, $size) {
+    $lh: $lh + $unit;
+  }
+
+  font-size: font-scale($units, $size);
+  line-height: $lh;
+};</code></pre>
+        <p>
+          And an example:
+        </p>
+        <pre><code>.an-article {
+  p {
+    @include font-size(0);
+  }
+};</code></pre>
+        <p>
+          To briefly explain what happened in the previous function, in order:
+        </p>
+        <ol>
+          <li>
+            After some digging, we fetch the base unit from the scale specified in the second argument (if no argument, it'll default to `medium`) and put it into a `$lh` variable. This variable will contain the minimum valid height for a `line-height`, which is always 1 unit.
+          </li>
+          <li>
+            In a `@while` loop, we increment `$lh` by one unit until it can accommodate the height of `font-scale()`.
+          </li>
+          <li>
+            We then output a `font-size` and a `line-height` directives with the generated values.
+          </li>
+        </ol>
+        <p>
+          Throughout this booklet we'll be using the above mixin for sizing text all over.
+        </p>
+      </article>
+      <article>
+        <p>
+          This short puzzle will help clarify a lot of how sizing things in a browser works:
+        </p>
+        <p>
+          Say you want a container of a certain width to contain two other containers inside, perfectly.
+        </p>
+        <p>
+          *image of the containers*
+        </p>
+        <p>
+          The first thing most do is think of floats. This is crazy. Fact is those two elements are inline block elements, and shouldn't need to be floated just to behave like so. There's a value for `display` in CSS for doing precisely that, which is `inline-block`.
+        </p>
+        <p>
+          So:
+        </p>
+        <pre><code>&lt;div class=&quot;wrapper&quot;&gt;
+  &lt;div class=&quot;container-a&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;container-b&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+.wrapper {
+  width: units(10);
+}
+
+.container-a,
+.container-b {
+  display: inline-block;
+}
+
+.container-a {
+  width: units(6);
+}
+
+.container-b {
+  width: units(4);
+}</code></pre>
+        <p>
+          That looks like it's all you'd need to do, right? Wrong. And it's not because CSS is terrible. The "problem" is the existence of something known as a text node. A text node is how a browser understands text that's between two containers, and guess what: what's separating the two inner tags above (the carriage return or "enter" you pressed) is one of those.
+        </p>
+        <p>
+          Don't believe me? Rewrite the markup above like so, and refresh the page:
+        </p>
+        <pre><code>&lt;div class=&quot;wrapper&quot;&gt;
+      &lt;div class=&quot;container-a&quot;&gt;&lt;/div&gt;&lt;div class=&quot;container-b&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;</code></pre>
+        <p>
+          Text nodes take space too. So in reality, you're asking for `wrapper` to contain more than those two containers up there, and we just declared that one takes 60% of the space, and the other 40%, so the total sum is over 100%.
+        </p>
+        <p>
+          One way to solve this problem, the way we'll use throughout this guide, is by setting the font size of the container to `0`. We can then set the font-size of text elements back to the correct size again where appropriate, thus making all text nodes "invisible" inside `wrapper`.
+        </p>
+        <pre><code>.wrapper {
+  width: units(10);
+  font-size: 0;
+}
+
+.container-a,
+.container-b {
+  display: inline-block;
+
+  p {
+    @include font-size(1);
+  }
+}
+
+.container-a {
+  width: units(6);
+}
+
+.container-b {
+  width: units(4);
+}</code></pre>
+        <p>
+          Yes, it needs to be painfully clear that the reason why we're doing this is so we work *with* the browser, and not against it. There are a number of hacks for solving the problem above, and while I won't cast the first stone, we should strive for solutions that tackle the real issue as much as possible.
+        </p>
+        <p>
+          We could've re-set the font size directly in `container-a` and `container-b`, rather than in a paragraph (or any other text node). As explained earlier, that could've been fine if we're going for either a single text size throughout, or perhaps a good default that has few overrides.
+        </p>
       </article>
     </section>
   </body>

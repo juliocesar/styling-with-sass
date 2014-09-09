@@ -115,12 +115,9 @@ That wasn't so hard, was it?
 
 Now armed with this knowledge, we can establish a few ground rules:
 
-* The base `line-height` value is 1 unit, whatever we decide the unit size should
-be.
-* Text can obviously be bigger than 1 unit, but in which case it'll take more than
-one line to accomodate it.
-* The dimensions of blocks (or anything that's not text) will always be X units
-for height and width.
+* The base `line-height` value is 1 unit, whatever we decide the unit size should be.
+* Text can obviously be bigger than 1 unit, but in which case it'll take more than one line to accomodate it.
+* The dimensions of blocks (or anything that's not text) will always be X units for height and width.
 * Padding and margin values will also be specified in units.
 
 (This doesn't mean you'll need to go around setting the height of everything, to be clear. If a section has text inside and it needs to grow as tall as necessary to accomodate all text, that'll happen naturally as you add text that's correctly sized to it)
@@ -151,7 +148,7 @@ The above is a [Sass map](http://www.sitepoint.com/using-sass-maps/). Think of i
 
 Now comes the actual calculations and functions. I'm using a `pow()` function taken from [Sassmeister](http://sassmeister.com/gist/10620fefd1ed75189f1b), which I found via an article by [James Steinbach](http://sitepoint.com/using-sass-build-custom-type-scale-vertical-rhythm/), on this same topic of vertical rhythm. So I won't repeat it here.
 
-The first function we'll write is one that'll use the variables above to output size values we can use in directives:
+The first function we'll write is one that'll use the scale above to output values we can use in directives:
 
     @function font-scale($x, $size: 'medium') {
       $display:     map-get($displays, $size);
@@ -160,24 +157,43 @@ The first function we'll write is one that'll use the variables above to output 
       @return round($font-size * pow($scale, $x));
     }
 
-We'll almost never use this directly.
+The parameter should always be an integer, and it can be smaller, equal, or greater than zero. Technically it's possible to use a fraction, and it's not incorrect so long as the font remains within the bounds of the line height, but you should instead rely on a `scale` value that allows for as much granularity as possible.
 
-Next comes a function for outputting a spacing that conforms with the grid, which we'll use for paddings, margins, widths and heights when set to a fixed value.
+An example of manually setting the font size with the function above:
+
+    .welcome-heading {
+      font-size: font-scale(1);
+      line-height: units(2);
+    }
+
+Next comes a function for outputting a unit that conforms with the grid, which we'll use for paddings, margins, widths and (line) heights when set to a fixed value.
 
     @function units($x, $size: 'medium') {
       $display: map-get($displays, $size);
       @return map-get($display, 'unit') * $x;
     }
 
-In keeping with the lingo, as well as to avoid ridiculously high values of `spacing()` which will end up not meaning much, this is a helper for outputting a column width. The convention this sets is that a column width is 4 units. You could potentially keep this in a variable outside of this method, for ease of
-configuration.
+Example:
+
+    .container {
+      padding: units(1);
+      width: units(8);
+    }
+
+In keeping with the lingo, and to avoid ridiculously high values of `units()` which will end up not meaning much, `column()` outputs a column width. The convention this sets is that a column width is 4 units. You could potentially keep this in a variable outside of this method.
 
     @function columns($x, $size: 'medium') {
       @return units(4, $size) * $x;
     }
 
-And finally, we need a helper for making it easy to set font sizes that come
-with a correct line height value:
+Example:
+
+    .container {
+      padding: units(1);
+      width: columns(2);
+    }
+
+And finally, a mixin for making it easy to set font sizes that come with a correct line height value. This maps directly to the result you get from dragging the scale value in Gridlover:
 
     @mixin font-size($units, $size: 'medium') {
       $display: map-get($displays, $size);
@@ -192,20 +208,27 @@ with a correct line height value:
       line-height: $lh;
     }
 
-To briefly explain what happened in the function above, in order:
+And an example:
 
-1) We set a `$lh` variable (short for line height) which will act as a return value for the function, to one unit. So the minimum valid height for any line height this helper outputs will always be that.
+  .an-article {
+    p {
+      @include font-size(0);
+    }
+  }
+
+To briefly explain what happened in the previous function, in order:
+
+1) After some digging, we fetch the base unit from the scale specified in the second argument (if no argument, it'll default to `medium`) and put it into a `$lh` variable. This variable will contain the minimum valid height for a `line-height`, which is always 1 unit.
 2) In a `@while` loop, we increment `$lh` by one unit until it can accommodate the height of `font-scale()`.
 3) We then output a `font-size` and a `line-height` directives with the generated values.
 
-Throughout this booklet we'll be using this directive for sizing text all over.
+Throughout this booklet we'll be using the above mixin for sizing text all over.
 
 ###
 
 This short puzzle will help clarify a lot of how sizing things in a browser works:
 
-Say you want a container of a certain width to contain two other containers inside,
-perfectly.
+Say you want a container of a certain width to contain two other containers inside, perfectly.
 
 *image of the containers*
 
