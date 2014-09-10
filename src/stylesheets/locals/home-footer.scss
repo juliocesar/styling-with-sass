@@ -3,8 +3,8 @@
 
 .home-footer {
   width: 100%;
-  max-width: columns(7);
-  margin: units(2) auto 0;
+  max-width: columns(6);
+  margin: units(2) auto;
 
   p {
     @include font-size(0);
