@@ -20,128 +20,133 @@
           Sizing text and blocks, although distinct challenges with their own particulars, in order for correctness to be retained and for things to stay as easy as possible to use, a mechanism is necessary for implementing a grid. That mechanism should be unobtrusive, rather than something that turns into a reference one needs to constantly look at. Therefore, the API surface should be very small.
         </p>
         <p>
-          A grid's main function is to define the steps that any element can grow or be positioned into. In saying the word "grid", it immediately comes to mind the idea of columns, but a column is really just a helper for understanding the fact that you are in reality putting things in a map.
+          A grid’s main function is to define the steps that any element can grow or be positioned into. In saying the word “grid”, it immediately comes to mind the idea of columns, but a column is really just a helper for understanding the fact that you are in reality putting things in a map of coordinates.
         </p>
         <p>
-          Think of a chessboard. The grid is composed by squares, and you can only move one square, or many, or half (that's unlike chess, generally not recommended, but technically within proportion), but never by 77% of a unit, or another non-proportional measure.
+          Think of a chessboard. The grid is composed by squares, and you can only move one square, or many, or half (the latter being unlike chess, generally not recommended, but technically within proportion), but never by 77% of a unit, or another non-proportional measure. This is, I’ll admit, an oversimplification. A better metaphor is actually a rhythmic unit (hence the expression “vertical rhythm”), in which it says you have more or less complete freedom to do anything you want so long as at the end of a few units you remain within proportion.
         </p>
         <p>
-          Creativity wants freedom. And these constraints can come across as being opposed to that, but in fact they're there to assist you with keeping proportion, a key element of aesthetics, and thus, good design. In short: using a grid helps making things look right on the screen.
+          Creativity wants freedom. And these constraints can come across as being opposed to that, but in fact they’re there to assist you with keeping order, a key element of aesthetics, and thus, good design. In short: using a grid helps making things look right on the screen.
         </p>
       </article>
       <article>
         <p>
-          Let's start by addressing the problem of sizing units, and a common misconception about them.
+          Let's start by addressing the problem of measurement units, and a common misconception about them.
         </p>
         <p>
-          Much has been said about `px`, `ems`, `rems`. In short, `px` being considered wrong, `ems` are ok, and `rems` are "easy ems". I'll propose something else entirely: when you work with scales, the unit does not matter, not even a little bit.
+          Much has been said about <abbr>px</abbr>, <abbr>ems</abbr>, <abbr>rems</abbr>. In short, <abbr>px</abbr> being considered wrong, <abbr>ems</abbr> are ok, and <abbr>rems</abbr> are “easy ems”. I’ll propose something else entirely: when you work with scales, the unit does not matter, not even a little bit.
         </p>
         <p>
-          The `px` stigma, to the best of my knowledge, comes from the old days os the web when IE had a bug in which text wouldn't scale up when the page was zoomed (Ctrl/CMD plus). Someone then said pixels were a bad idea and a lot was lost in the message.
+          The <abbr>px</abbr> stigma, to the best of my knowledge, comes from the old days os the web when Internet Explorer had a bug in which text wouldn’t scale up when the page was zoomed (Ctrl/⌘ plus). Someone then coined that pixels were a bad idea, and from thereon, discussing pixels became a lot like discussing communism.
         </p>
         <p>
-          The proposed solution to the problem was to use ems instead, but with ems comes great power, and with great power comes great responsibility. ems are a proportional, tool-like measure which can *very* easily create a hell of a cascading mess of font sizings if not used mindfully.
+          The proposed solution to the problem was to use <abbr>ems</abbr> instead, but with <abbr>ems</abbr> comes great power, and with great power comes great responsibility. <abbr>ems</abbr> are a proportional, tool-like measure which can <strong>very</strong> easily create a cascading mess of font sizes if not used mindfully.
         </p>
         <p>
-          For instance, it's not rare finding `font-size` directives applied to containers (often a mistake). Small containers that have one font size used by all its child nodes would be fine, but think of something like this:
+          For example, it’s not rare finding <code class="language-scss">font-size</code> directives applied to containers. Small containers that have one font size used by all its child nodes would be fine, but consider this:
         </p>
-        <pre><code>
-        &lt;pre&gt;&lt;code&gt;&lt;section&gt;
-      &lt;h1&gt;A heading&lt;/h1&gt;
-      &lt;p&gt;
-        Lorem ipsum something.
-      &lt;/p&gt;
-      &lt;blockquote&gt;
-        Rah rah rah
-      &lt;/blockquote&gt;
-      &lt;aside&gt;
-        &lt;p&gt;Yeah but&#x2026;&lt;/p&gt;
-      &lt;/aside&gt;
-    &lt;/section&gt;</code></pre>
+        <pre><code class="language-markup">&lt;section&gt;
+  &lt;h1&gt;A heading&lt;/h1&gt;
+  &lt;p&gt;
+    Lorem ipsum something.
+  &lt;/p&gt;
+  &lt;blockquote&gt;
+    Rah rah rah
+  &lt;/blockquote&gt;
+  &lt;aside&gt;
+    &lt;p&gt;Yeah but&#x2026;&lt;/p&gt;
+  &lt;/aside&gt;
+&lt;/section&gt;</code></pre>
         <p>
-          In setting the section's font size to something like `1.6em`, every child node gets its base size reset to that value. Meaning: If the font-size of `h1` is set to `1em`, nothing changes, because `1em` means "100% of the parent's font-size", for all intents and purposes.
+          In setting the section’s font size to something like <code class="language-scss">1.6em</code>, every child node gets its base size reset to that value. Meaning: If the <code class="language-scss">font-size</code> of <code class="language-scss">h1</code> is set to <code class="language-scss">1em</code>, nothing changes, because <code class="language-scss">1em</code> means 100% of the parent’s <code class="language-scss">font-size</code>, for all intents and purposes.
         </p>
-        <p>
-          But we want the heading size to be "slightly bigger" than the rest, no? So we go:
+        <p >
+          But we want the heading size to be slightly bigger than the rest, no? So we go:
         </p>
-        <pre><code>h1 {
+        <pre><code class="language-scss">h1 {
   font-size: 1.3em;
 }</code></pre>
         <p>
-          So ok, but perhaps blockquote should be a bit bigger too, so we go:
+          And perhaps blockquotes should be a bit bigger too:
         </p>
-        <pre><code>blockquote {
+        <pre><code class="language-scss">blockquote {
   font-size: 1.1em;
 }</code></pre>
         <p>
-          And aside should be a bit smaller, right? That makes sense:
+          And the aside should be smaller, right? That makes sense:
         </p>
-        <pre><code>aside {
+        <pre><code class="language-scss">aside {
   font-size: .8em;
 }</code></pre>
         <p>
-          (In short, you're actually saying "130%", "110%", and "80%" of the container's font size. For clarity sake, *you may as well just use percentages*, since those take no decyphering)
+          In short, you’re actually saying 130%, 110%, and 80% of the container’s font size. For clarity sake, <strong>you may as well just use percentages</strong>, since those take no decyphering.
         </p>
         <p>
-          Now picture what happens in a web app scenario with multiple nested components. Granted, this is ems in misuse, and this doesn't mean ems are a bad idea. But they carry tooling with them, so they're ideal for on-the-spot proportional measures, which don't fit the vision that you're learning in this booklet. We operate through a scale, and the scale is the source of all correct sizes. Hence, inventing proportions on the spot is, in this instance, wrong.
+          Now picture what happens in a web app scenario with multiple nested components, where if the root component has a <code class="language-scss">font-size</code> directive applied to its container. Granted, this is an example of <abbr>ems</abbr> in misuse, so this doesn’t mean <abbr>ems</abbr> are a bad idea. But they carry tooling with them, which don’t fit the vision that you're learning in this booklet. We operate through a scale, and the scale is the source of all correct sizes. Hence, font sizes that come from a consequence rather than it are, in this instance, wrong.
         </p>
         <p>
-          Last, it's worth mentioning viewport relative units, which are also tooling units that can come in handy. Setting a wrapper's width/height to a percentual value achieves one thing: it sets it to the *width of the parent*. Yes, the *width*. Browsers won't figure that when you say `height: 50%` you probably mean 50% of the height of the parent.
+          Last, it’s worth mentioning viewport relative units, which are also tooling units that can come in handy. Setting an element’s width/height to a percentual value achieves one thing: it sets it to the <strong>width of the parent</strong>. Yes, the <strong>width</strong>. Browsers won’t figure that when you say <code class="language-scss">height: 50%</code> you probably mean 50% of the height of the parent.
         </p>
         <p>
-          In saying "the parent", you may be going for the viewport (a.k.a. the browser window) width. That's where viewport relative units come into action. You can use `50vw` for "50% of the viewport width", and that will yield a reliable 50% of the window width. For height, you can use `height: 50vh` to get 50% of the window height, and this is particularly useful for modals, or overlays that are sized in relation to the window size.
+          In saying “the parent”, you may be going for the viewport (a.k.a. the browser window) width. That’s where viewport relative units come into action. You can use <code class="language-scss">50vw</code> for 50% of the viewport width, and that will yield a reliable 50% of the window width. For height, you can use <code class="language-scss">height: 50vh</code> to get 50% of the window height, and this is particularly useful for modals, or overlays that are sized in relation to the window size.
         </p>
         <p>
-          I won't go into length here about that since there are specific tutorials on viewport relative units out there that also explain `vmin` and `vmax`. This is just so you're aware of them.
+          I won’t go into length here about that since there are specific tutorials on viewport relative units out there that also explain <code class="language-scss">vmin</code> and <code class="language-scss">vmax</code> units. This is just so you’re aware of them.
         </p>
       </article>
       <article>
         <p>
-          You may be surprised when I say this, but you don't need a grid framework. Some of them are fine tools, but as a developer, the more you understand the problem domain, the more powerful you are, and this is a problem that is only hard if you never bothered doing that. This belief ultimately leads to you being constrained by nothing but your creativity, and never by your technical expertise. You're welcome to outsource this to a tool once you learn it. But I'm sure you won't want to.
+          Grid frameworks are, in a way, a crutch. Some are fine tools, but as a developer, the more you understand the problem domain, the more powerful you become, and this is a problem that only feels hard if you never bothered doing that. This belief ultimately leads to you being constrained by nothing but your creativity, and never by your technical expertise. You're welcome to outsource this to a tool once you learn it. But I'm sure you won't want to.
         </p>
         <p>
-          Every time someone suggests a field needs to be nudged to a direction by one pixel, it's almost a given they're doing eyeball-oriented design. That won't get you far. It also makes the discussion a lot more complicated. Suddenly it's up for debate things that, in reality, are either in the correct place or not at all.
+          Every time someone suggests a field needs to be enlarged by one pixel, unless they’re out to fix what’s already a broken sizing system, it’s almost a given they’re doing eyeball-oriented design, and that won’t get you far. It also makes the discussion a lot more complicated: suddenly it’s up for debate things that, in reality, are either in the correct place or not at all.
         </p>
         <p>
-          A grid has **units**. Things should fit nicely inside these units, including text. When upsizing a font, you upsize it with a scale, so your options are simple: you can move the font size up or down the scale (similarly to dragging the size number bars in Gridlovr), and the scale, which we will implement with a SASS function, will output a pixel value. In short, there'll be font size 0, 1, 2, 3, or X until it's too large, but you won't ever again pick a font size that just "looks right" by trial and error.
+          A grid has <strong>units</strong>, and things should fit nicely inside these units, including text. When upsizing a font, you upsize it with a scale, which also simplifies your options: you can move the font size up or down the scale, and the scale, which we will implement with a Sass function, will output a pixel value. In short, there'll be font size 0, 1, 2, 3, or X until it's too large (or negative numbers too), but you won’t ever again pick a font size that just <strong>appears</strong> right through trial and error.
         </p>
         <p>
-          Similarly, block elements that have fixed, or maximum/minimum, dimensions will be sized by a `units()` function. So instead of setting a fixed number of, say, pixels to a container, it'll be like this:
+          Similarly, block elements that have fixed, or maximum/minimum, dimensions will be sized by a <code>units()</code> function. So instead of setting a fixed number of, say, pixels to a container, it'll be like this:
         </p>
-        <pre><code>    .a-container {
-      max-width: units(6);
-    }</code></pre>
+        <pre><code class="language-scss">.a-container {
+  width: units(6);
+}</code></pre>
       </article>
       <article>
         <p>
-          A text node's height is not determined by the `font-size` directive per se. That will be taken into consideration, but it's in fact the `line-height` that will. Sure, you **can** set the `height` if you also declare the node is a block node via `display: inline-block` and then that will be its height, but it'll make for some tall text nodes that are just weird. CSS is flexible and it'll let you do stupid things. That in fact is one of the main problems with it. It's up to you to make sure that flexibility is put to good use.
+          A text node’s height is not determined by the <code class="language-scss">font-size</code> directive alone. That will be taken into consideration, but it’s actually the <code class="language-scss">line-height</code> that will. Sure, in some cases you <strong>can</strong> set the height, and then that will be its height. But it’ll make for some tall text node that is just weird. CSS is flexible like that and it’ll let you do stupid things. That in fact is another common source of grief. It’s up to you to put that flexibility to good use.
         </p>
         <p>
           See this:
         </p>
-        <pre><code>    p {
-      font-size: 16px;
-      line-height: 1.5;
-      margin-top: 16px;
-    }</code></pre>
+        <pre><code class="language-scss">p {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-top: 16px;
+}</code></pre>
         <p>
-          If you inspect the paragraph using your browser's developer tools, you'll see that the node is 24 pixels tall. If this paragraph were two lines long, it'd be 48 pixels tall. That's because by setting `line-height: 1.5` you declared that the line height should be 150% of the `font-size` value.
+          Which creates a paragraph like this:
+        </p>
+        <img src="images/16px-paragraph.png" class="example-image" data-height-1>
+        <p>
+          You can see the node is 24 pixels tall. If this paragraph were two lines long, it'd be 48 pixels tall. That's because by setting <code class="language-scss">line-height: 1.5</code> you declared that the line height should be 150% of the <code class="language-scss">font-size</code> value.
         </p>
         <p>
-          There's nothing technically incorrect in styling things like this, by the way, if the grid unit size is in fact `24px`. But what comes with setting things like `line-height` using per-selector proportional measures such as the unitless number above is people end up setting it to something that may look ok but is incorrect as far as the grid goes. And then another paragraph elsewhere gets a `line-height: 1.3` directive, because it "looks ok". And soon enough the design is full of holes.
+          There’s nothing technically incorrect in styling things like this (if all you care about is the outcome) if the grid unit size is in fact <code class="language-scss">24px</code>. But what comes with setting things like <code class="language-scss">line-height</code> using per-selector proportional measures such as the unitless number above is people end up setting it to something that may look ok but is incorrect as far as the grid goes. And then another paragraph elsewhere gets a <code class="language-scss">line-height: 1.3</code> directive, because it “looks ok”. And soon enough the design is full of holes.
         </p>
         <p>
-          Text is always positioned in the centre of the line. So if you want to vertically align a text node, simply give its line height the same height of the container:
+          Text is always positioned in the centre of the line. So for instance, if you want to vertically align a text node, simply give its line height the same height of the container:
         </p>
-        <pre><code>    .cube {
-      height: 320px;
-      width: 320px;
+        <pre><code class="language-scss">.cube {
+  height: 240px;
+  width: 240px;
+  border: 2px solid gray;
 
-      .promo-paragraph {
-        line-height: 320px;
-        font-size: 16px;
-      }
-    }</code></pre>
+  .promo-paragraph {
+    line-height: 240px;
+    font-size: 16px;
+  }
+}</code></pre>
+        <img src="images/cube-example.png" class="example-image" data-height-3>
         <p>
           That wasn't so hard, was it?
         </p>
@@ -152,28 +157,28 @@
         </p>
         <ul>
           <li>
-            The base `line-height` value is 1 unit, whatever we decide the unit size should be.
+            The base <code class="language-scss">line-height</code> value is 1 unit, whatever we decide the unit size should be.
           </li>
           <li>
-            Text can obviously be bigger than 1 unit, but in which case it'll take more than one line to accomodate it.
+            Text can obviously be bigger than 1 unit, but in that case it’ll take more than one line (or unit) to accomodate it.
           </li>
           <li>
-            The dimensions of blocks (or anything that's not text) will always be X units for height and width, when having fixed dimensions.
+            The dimensions of containers that have fixed dimensions will always be X units for either.
           </li>
           <li>
             Padding and margin values will also be specified in units.
           </li>
         </ul>
         <p>
-          (This doesn't mean you'll need to go around setting the height of everything, to be clear. If a section has text inside and it needs to grow as tall as necessary to accomodate all text, that'll happen naturally as you add text that's correctly sized to it)
+          To be clear, this doesn’t mean you'll need to go around setting the height of everything. If a section has text inside and it needs to grow as tall as necessary to accomodate it all, that’ll happen naturally as you add text that’s correctly sized to it.
         </p>
         <p>
-          What I'm describing here is the same approach explained in <a href="http://www.gridlover.net/">Gridlover</a>. Gridlover is a nice tool for generating a scale which you can copy and paste into your styles. If you're not familiar, go play with it and fiddle with the values a little. This will help clarifying the concepts explained thus far.
+          What I’m describing here is the same approach implemented by <a href="http://www.gridlover.net/">Gridlover</a>. Gridlover is an excellent tool for generating a scale which you can copy and paste into your styles. If you’re not familiar, go play with it and fiddle with the values a little. This will help clarifying the concepts explained thus far, and visualising how text fits inside lines.
         </p>
         <p>
-          What will likely happen is you will have 3 scales: one for small displays, one for medium, and one for large displays. When we address responsiveness later on in this booklet, we will go through the use of the first and last scales. For now, know that the functions and mixins coming next will default to using the medium setting.
+          What will usually happen is you will have 3 scales: one for small displays, one for medium, and one for large displays. When we address responsiveness later on in this booklet, we will go through the use of the first and last scales. For now, know that the functions and mixins coming up next will default to using the medium scale.
         </p>
-        <pre><code>$displays: (
+        <pre><code class="language-scss">$displays: (
   small: (
     font-size: 14px,
     unit: 15px * 1.3,
@@ -191,61 +196,62 @@
   )
 );</code></pre>
         <p>
-          The above is a <a href="http://www.sitepoint.com/using-sass-maps/">Sass map</a>. Think of it as a database where we put the scales mentioned before.
+          The above is a <a href="http://www.sitepoint.com/using-sass-maps/">Sass map</a>. Think of it as a hash where we put the aforementioned scales.
         </p>
         <p>
-          Now comes the actual calculations and functions. I'm using a `pow()` function taken from <a href="http://sassmeister.com/gist/10620fefd1ed75189f1b">Sassmeister</a>, which I found via an article by <a href="http://sitepoint.com/using-sass-build-custom-type-scale-vertical-rhythm/">James Steinbach</a>, on this same topic of vertical rhythm. So I won't repeat it here.
+          Now comes the actual calculations and functions. I’m using a <code class="language-scss">pow()</code> function taken from <a href="http://sassmeister.com/gist/10620fefd1ed75189f1b">Sassmeister</a>, which I found via an article by <a href="http://sitepoint.com/using-sass-build-custom-type-scale-vertical-rhythm/">James Steinbach</a>, on this same topic of vertical rhythm, so I won’t repeat it here.
         </p>
         <p>
-          The first function we'll write is one that'll use the scale above to output values we can use in directives:
+          The first function we’ll look at is one that’ll use the scale above to output values we can use in directives:
         </p>
-        <pre><code>@function font-scale($x, $size: 'medium') {
+        <pre><code class="language-scss">@function font-scale($x, $size: 'medium') {
   $display:     map-get($displays, $size);
   $scale:       map-get($display, 'scale');
   $font-size:   map-get($display, 'font-size');
   @return round($font-size * pow($scale, $x));
 };</code></pre>
         <p>
-          The parameter should always be an integer, and it can be smaller, equal, or greater than zero. Technically it's possible to use a fraction, and it's not incorrect so long as the font remains within the bounds of the line height, but you should instead rely on a `scale` value that allows for as much granularity as possible.
+          The parameter should always be an integer, and it can be smaller, equal, or greater than zero. Technically it’s possible to use a fraction, and it’s not incorrect so long as the font remains within the bounds of the line height, but you should instead pick scale value that allows for as much granularity as you need for the design.
         </p>
         <p>
-          An example of manually setting the font size with the function above:
+          An example on setting the font size with the function above:
         </p>
-        <pre><code>.welcome-heading {
+        <pre><code class="language-scss">.welcome-heading {
   font-size: font-scale(1);
   line-height: units(2);
 };</code></pre>
         <p>
-          Next comes a function for outputting a unit that conforms with the grid, which we'll use for paddings, margins, widths and (line) heights when set to a fixed value.
+          Next comes a function for outputting a unit that conforms with the grid, which we’ll use for paddings, margins, widths and (line) heights when set to a fixed value.
         </p>
-        <pre><code>@function units($x, $size: 'medium') {
+        <pre><code class="language-scss">@function units($x, $size: 'medium') {
   $display: map-get($displays, $size);
   @return map-get($display, 'unit') * $x;
 };</code></pre>
         <p>
           Example:
         </p>
-        <pre><code>.container {
+        <pre><code class="language-scss">.container {
   padding: units(1);
   width: units(8);
 };</code></pre>
         <p>
-          In keeping with the lingo, and to avoid ridiculously high values of `units()` which will end up not meaning much, `column()` outputs a column width. The convention this sets is that a column width is 4 units. You could potentially keep this in a variable outside of this method.
+          In keeping with the lingo, and to avoid overly high values of <code class="language-scss">units()</code> which end up not meaning much, <code class="language-scss">column()</code> outputs a column width. The convention this sets is that a column width is 4 units. You could potentially keep this factor in a variable outside of this method.
         </p>
-        <pre><code>@function columns($x, $size: 'medium') {
+        <pre><code class="language-scss">@function columns($x, $size: 'medium') {
   @return units(4, $size) * $x;
 }</code></pre>
         <p>
           Example:
         </p>
-    <pre><code>.container {
+    <pre><code class="language-scss">.container {
   padding: units(1);
   width: columns(2);
 }</code></pre>
         <p>
-          And finally, a mixin for making it easy to set font sizes that come with a correct line height value. This maps directly to the result you get from dragging the scale value in Gridlover:
+          And finally, a mixin for making it easy to set font sizes that come with a correct line height value. This maps directly to the result you get from dragging the scale value in Gridlover, as below:
         </p>
-        <pre><code>@mixin font-size($units, $size: 'medium') {
+        <img src="images/gridlover-example.png" class="example-image" data-height-3>
+        <pre><code class="language-scss">@mixin font-size($units, $size: 'medium') {
   $display: map-get($displays, $size);
   $unit:    map-get($display, 'unit');
   $lh:      $unit;
@@ -258,111 +264,115 @@
   line-height: $lh;
 };</code></pre>
         <p>
-          And an example:
+          An example of it in action:
         </p>
-        <pre><code>.an-article {
+        <pre><code class="language-scss">.an-article {
   p {
     @include font-size(0);
   }
 };</code></pre>
         <p>
-          To briefly explain what happened in the previous function, in order:
+          To briefly explain what happened in the previous function declaration, in order:
         </p>
         <ol>
           <li>
-            After some digging, we fetch the base unit from the scale specified in the second argument (if no argument, it'll default to `medium`) and put it into a `$lh` variable. This variable will contain the minimum valid height for a `line-height`, which is always 1 unit.
+            After some digging, we fetch the base unit from the scale specified in the second argument (if no argument, it'll default to <code class="language-scss">medium</code>) and put it into a <code class="language-scss">$lh</code> variable. This variable will contain the minimum valid height for a <code class="language-scss">line-height</code>, which is always 1 unit.
           </li>
           <li>
-            In a `@while` loop, we increment `$lh` by one unit until it can accommodate the height of `font-scale()`.
+            In a <code class="language-scss">@while</code> loop, we increment <code class="language-scss">$lh</code> by one unit until it can accommodate the height of <code class="language-scss">font-scale()</code>.
           </li>
           <li>
-            We then output a `font-size` and a `line-height` directives with the generated values.
+            We then output a <code class="language-scss">font-size</code> and a <code class="language-scss">line-height</code> directives with the generated values.
           </li>
         </ol>
         <p>
-          Throughout this booklet we'll be using the above mixin for sizing text all over.
+          Throughout this booklet we’ll be using the above mixin for sizing text all over.
         </p>
       </article>
       <article>
         <p>
-          This short puzzle will help clarify a lot of how sizing things in a browser works:
+          This short puzzle will help clarify how sizing things in a browser works. Say you want a container of a fixed width to perfectly contain two other containers inside, where <code class="language-scss">.container-a</code> is the red block and <code class="language-scss">.container-b</code> is green one.
+        </p>
+        <img src="images/two-columns-example.png" class="example-image" data-height-3>
+        <p>
+          The first thing most think to do float each to one side, and <a href="http://nicolasgallagher.com/micro-clearfix-hack/">clearfix</a> the root container, which despite working, is a gross hack. In reality, you don't want to <strong>float</strong> anything as you would with, say, an image that’s inside a paragraph which is meant to be on the right side of the text. The two sub-containers are inline block elements. Meaning: they are block elements that don’t take the entire horizontal space unless you set their width to that.
         </p>
         <p>
-          Say you want a container of a certain width to contain two other containers inside, perfectly.
+          So you mark it up like this:
         </p>
-        <p>
-          *image of the containers*
-        </p>
-        <p>
-          The first thing most do is think of floats. This is crazy. Fact is those two elements are inline block elements, and shouldn't need to be floated just to behave like so. There's a value for `display` in CSS for doing precisely that, which is `inline-block`.
-        </p>
-        <p>
-          So:
-        </p>
-        <pre><code>&lt;div class=&quot;wrapper&quot;&gt;
+        <pre><code class="language-markup">&lt;div class=&quot;wrapper&quot;&gt;
   &lt;div class=&quot;container-a&quot;&gt;&lt;/div&gt;
   &lt;div class=&quot;container-b&quot;&gt;&lt;/div&gt;
-&lt;/div&gt;
-
-.wrapper {
-  width: units(10);
+&lt;/div&gt;</code></pre>
+        <p>
+          And style it like this:
+        </p>
+        <pre><code class="language-scss">.wrapper {
+  width: units(20);
 }
 
 .container-a,
 .container-b {
   display: inline-block;
+  width: 50%;
+  height: units(20);
 }
 
 .container-a {
-  width: units(6);
+  background: red;
 }
 
 .container-b {
-  width: units(4);
+  background: green;
 }</code></pre>
         <p>
-          That looks like it's all you'd need to do, right? Wrong. And it's not because CSS is terrible. The "problem" is the existence of something known as a text node. A text node is how a browser understands text that's between two containers, and guess what: what's separating the two inner tags above (the carriage return or "enter" you pressed) is one of those.
+          And then this happens:
+        </p>
+        <img src="images/two-columns-broken.png" class="example-image" data-height-4>
+        <p>
+        The “problem” is the existence of something known as a <a href="http://www.w3schools.com/jsref/met_document_createtextnode.asp">text node</a>. A text node is how the browser understands <strong>just the text</strong> that’s within a tag. And guess what: what’s separating the two inner tags above, in the writing of the HTML, the carriage return or “enter” you pressed, is one of those. And they take space too.
         </p>
         <p>
-          Don't believe me? Rewrite the markup above like so, and refresh the page:
+          If you rewrite the markup so it looks like this:
         </p>
-        <pre><code>&lt;div class=&quot;wrapper&quot;&gt;
-      &lt;div class=&quot;container-a&quot;&gt;&lt;/div&gt;&lt;div class=&quot;container-b&quot;&gt;&lt;/div&gt;
-    &lt;/div&gt;</code></pre>
+        <pre><code class="language-scss">&lt;div class=&quot;wrapper&quot;&gt;
+  &lt;div class=&quot;container-a&quot;&gt;&lt;/div&gt;&lt;div class=&quot;container-b&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
         <p>
-          Text nodes take space too. So in reality, you're asking for `wrapper` to contain more than those two containers up there, and we just declared that one takes 60% of the space, and the other 40%, so the total sum is over 100%.
+          Then you'll get what you expect:
+        </p>
+        <img src="images/two-columns-right.png" class="example-image" data-height-4>
+        <p>
+          Since as you can see text nodes take space too, in reality, you're asking for <code class="language-scss">.wrapper</code> to contain the two sub containers (each with a width of 50%) <strong>plus</strong> one text node, which is just enough to derail the whole thing.
         </p>
         <p>
-          One way to solve this problem, the way we'll use throughout this guide, is by setting the font size of the container to `0`. We can then set the font-size of text elements back to the correct size again where appropriate, thus making all text nodes "invisible" inside `wrapper`.
+          But surely we don’t want to write shitty markup for the sake of things working as you’d expect in the first place. Since the role of the root wrapper is really to just contain the sub-containers and no text, the <strong>correct</strong> way to solve this is setting the size of text for the root wrapper to zero. It can then be restored in the sub-containers themselves, or in any text tags there may be in them.
         </p>
-        <pre><code>.wrapper {
-  width: units(10);
+        <pre><code class="language-scss">.wrapper {
+  width: units(20);
   font-size: 0;
 }
 
 .container-a,
 .container-b {
+  @include font-size(0);
   display: inline-block;
-
-  p {
-    @include font-size(1);
-  }
+  width: 50%;
+  height: units(20);
 }
 
 .container-a {
-  width: units(6);
+  background: red;
 }
 
 .container-b {
-  width: units(4);
+  background: green;
 }</code></pre>
         <p>
-          Yes, it needs to be painfully clear that the reason why we're doing this is so we work *with* the browser, and not against it. There are a number of hacks for solving the problem above, and while I won't cast the first stone, we should strive for solutions that tackle the real issue as much as possible.
-        </p>
-        <p>
-          We could've re-set the font size directly in `container-a` and `container-b`, rather than in a paragraph (or any other text node). As explained earlier, that could've been fine if we're going for either a single text size throughout, or perhaps a good default that has few overrides.
+          It needs to be painfully clear that the reason why we’re doing this is so we work <strong>with</strong> the browser, and not against it through hacks. There are a number them for solving the problem above, and while I won’t cast the first stone, we should strive for solutions that tackle the real issue as much as possible.
         </p>
       </article>
     </section>
+    <script src="javascript/prism.js"></script>
   </body>
 </html>
