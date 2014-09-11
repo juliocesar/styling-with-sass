@@ -86,4 +86,56 @@
     background: url(../images/separator.svg) no-repeat center;
     background-size: contain;
   }
+
+  // A temporary exception.
+  .calc-fluid-wrapper {
+    position: relative;
+    width: 75%;
+    height: units(5);
+    border: 2px solid $gray;
+    font-size: 0;
+    margin-right: auto;
+    margin-left: auto;
+    white-space: nowrap;
+
+    .label-span {
+      transition: opacity .5s ease-out;
+      display: block;
+      width: 100%;
+      text-align: center;
+      font-size: font-scale(0);
+      line-height: units(5);
+      pointer-events: none;
+    }
+
+    .fluid-wrapper,
+    .fixed-wrapper {
+      transition: width .5s ease-out;
+      display: inline-block;
+      height: 100%;
+    }
+
+    .fluid-wrapper {
+      width: calc(100% - #{units(5)});
+    }
+
+    .fixed-wrapper {
+      width: units(5);
+      border-left: 1px solid $gray;
+    }
+
+    &:active {
+      .fluid-wrapper {
+        width: 100%;
+      }
+
+      .fixed-wrapper {
+        width: 0;
+
+        .label-span {
+          opacity: 0;
+        }
+      }
+    }
+  }
 }
