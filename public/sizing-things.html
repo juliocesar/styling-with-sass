@@ -372,7 +372,44 @@
           It needs to be painfully clear that the reason why we’re doing this is so we work <strong>with</strong> the browser, and not against it through hacks. There are a number them for solving the problem above, and while I won’t cast the first stone, we should strive for solutions that tackle the real issue as much as possible.
         </p>
       </article>
+      <article>
+        <p>
+          One last technique worth mentioning is <code class="language-scss">calc()</code>. Calc is a CSS function which, to make a long story short, it lets you mix different measurement units.
+        </p>
+        <p>
+          It's especially helpful when you mix fluid containers with containers that have fixed dimensions. Click (or touch) and hold over the container below to see it in action.
+        </p>
+        <div class="calc-fluid-wrapper" ontouchstart="">
+          <div class="fluid-wrapper">
+            <span class="label-span">Fluid</span>
+          </div>
+          <div class="fixed-wrapper">
+            <span class="label-span">3 units</span>
+          </div>
+        </div>
+        <p>
+          The interesting parts of the styles are as below:
+        </p>
+        <pre><code class="language-scss">.calc-fluid-container {
+  .fluid-wrapper {
+    width: calc(100% - #{units(5)});
+  }
+
+  .fixed-wrapper {
+    width: units(5);
+  }
+}</code></pre>
+      </article>
     </section>
     <script src="javascript/prism.js"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-54704138-1', 'auto');
+      ga('send', 'pageview');
+    </script>
   </body>
 </html>
