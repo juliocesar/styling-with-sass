@@ -11,11 +11,19 @@
     color: $red;
     margin: 0;
     text-align: center;
+
+    @include breakpoint(small) {
+      @include font-size(3, small);
+    }
   }
 
   article {
     &:first-of-type {
       margin-top: columns(1);
+
+      @include breakpoint(small) {
+        margin-top: columns(1, small);
+      }
     }
 
     >* {
@@ -24,11 +32,19 @@
       &:first-child {
         margin-top: 0;
       }
+
+      @include breakpoint(small) {
+        margin-top: units(1, small);
+      }
     }
 
     p,
     li {
       @include font-size(1);
+
+      @include breakpoint(small) {
+        @include font-size(1, small);
+      }
     }
 
     ul {
@@ -42,10 +58,15 @@
     pre,
     code {
       border: 0;
+      -webkit-overflow-scrolling: touch;
     }
 
     code {
       @include font-size(-1);
+
+      @include breakpoint(small) {
+        @include font-size(-1, small);
+      }
     }
 
     abbr {
@@ -62,18 +83,38 @@
 
       &[data-height-1] {
         height: units(3);
+
+        @include breakpoint(small) {
+          height: units(3, small);
+        }
       }
 
       &[data-height-2] {
         height: units(5);
+
+        @include breakpoint(small) {
+          height: units(5, small);
+        }
       }
 
       &[data-height-3] {
         height: units(10);
+
+        @include breakpoint(small) {
+          height: units(10, small);
+        }
       }
 
       &[data-height-4] {
         height: units(15);
+
+        @include breakpoint(small) {
+          height: units(15, small);
+        }
+      }
+
+      @include breakpoint(small) {
+        height: units(3, small);
       }
     }
   }
@@ -85,6 +126,11 @@
     content: '';
     background: url(../images/separator.svg) no-repeat center;
     background-size: contain;
+
+    @include breakpoint(small) {
+      height: units(1, small);
+      margin: units(2, small) auto units(2, small);
+    }
   }
 
   // A temporary exception.
@@ -97,6 +143,7 @@
     margin-right: auto;
     margin-left: auto;
     white-space: nowrap;
+    user-select: none;
 
     .label-span {
       transition: opacity .5s ease-out;
@@ -106,6 +153,11 @@
       font-size: font-scale(0);
       line-height: units(5);
       pointer-events: none;
+
+      @include breakpoint(small) {
+        font-size: font-scale(0, small);
+        line-height: units(5, small);
+      }
     }
 
     .fluid-wrapper,
@@ -116,12 +168,20 @@
     }
 
     .fluid-wrapper {
-      width: calc(100% - #{units(5)});
+      width: calc(100% - #{units(3)});
+
+      @include breakpoint(small) {
+        width: calc(100% - #{units(3, small)});
+      }
     }
 
     .fixed-wrapper {
-      width: units(5);
+      width: units(3);
       border-left: 1px solid $gray;
+
+      @include breakpoint(small) {
+        width: units(3, small);
+      }
     }
 
     &:active {
@@ -137,5 +197,18 @@
         }
       }
     }
+
+    @include breakpoint(small) {
+      height: units(5, small);
+    }
+  }
+
+  @include breakpoint(medium) {
+    padding: units(1);
+  }
+
+  @include breakpoint(small) {
+    padding: units(1, small);
+    margin: columns(1, small) auto;
   }
 }
