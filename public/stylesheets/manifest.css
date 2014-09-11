@@ -683,3 +683,39 @@ a {
     content: '';
     background: url(../images/separator.svg) no-repeat center;
     background-size: contain; }
+  .chapter-section .calc-fluid-wrapper {
+    position: relative;
+    width: 75%;
+    height: 135px;
+    border: 2px solid #7b7b7b;
+    font-size: 0;
+    margin-right: auto;
+    margin-left: auto;
+    white-space: nowrap; }
+    .chapter-section .calc-fluid-wrapper .label-span {
+      -webkit-transition: opacity .5s ease-out;
+      transition: opacity .5s ease-out;
+      display: block;
+      width: 100%;
+      text-align: center;
+      font-size: 18px;
+      line-height: 135px;
+      pointer-events: none; }
+    .chapter-section .calc-fluid-wrapper .fluid-wrapper,
+    .chapter-section .calc-fluid-wrapper .fixed-wrapper {
+      -webkit-transition: width .5s ease-out;
+      transition: width .5s ease-out;
+      display: inline-block;
+      height: 100%; }
+    .chapter-section .calc-fluid-wrapper .fluid-wrapper {
+      width: -webkit-calc(100% - 135px);
+      width: calc(100% - 135px); }
+    .chapter-section .calc-fluid-wrapper .fixed-wrapper {
+      width: 135px;
+      border-left: 1px solid #7b7b7b; }
+    .chapter-section .calc-fluid-wrapper:active .fluid-wrapper {
+      width: 100%; }
+    .chapter-section .calc-fluid-wrapper:active .fixed-wrapper {
+      width: 0; }
+      .chapter-section .calc-fluid-wrapper:active .fixed-wrapper .label-span {
+        opacity: 0; }
