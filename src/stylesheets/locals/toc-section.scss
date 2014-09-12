@@ -23,7 +23,23 @@
         padding-right: units(.5);
         width: columns(2);
         text-align: right;
+
+        @include breakpoint(small) {
+          font-size: font-scale(2, small);
+          width: calc(50% - #{units(2, small)});
+          padding-right: units(.5, small);
+        }
       }
+
+      @include breakpoint(small) {
+        @include font-size(1, small);
+        margin-top: units(.5, small);
+      }
+    }
+
+    @include breakpoint(small) {
+      width: 100%;
+      margin: units(2, small) auto 0;
     }
   }
 }

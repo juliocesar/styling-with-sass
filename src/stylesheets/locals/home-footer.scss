@@ -8,5 +8,14 @@
 
   p {
     @include font-size(0);
+
+    @include breakpoint(small) {
+      @include font-size(0, small);
+    }
+  }
+
+  @include breakpoint(small) {
+    padding: 0 units(1, small);
+    margin: units(2, small) auto;
   }
 }
