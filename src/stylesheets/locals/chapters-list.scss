@@ -20,6 +20,7 @@
     strong {
       display: inline-block;
       font-size: font-scale(2);
+      width: calc(50% - #{units(1)});
       padding-right: units(.5);
       text-align: right;
 
