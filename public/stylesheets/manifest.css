@@ -635,7 +635,8 @@ a {
 .chapters-list {
   width: 540px;
   margin: 54px auto 0;
-  list-style: none; }
+  list-style: none;
+  text-align: center; }
   .chapters-list li {
     font-size: 23px;
     line-height: 27px;
@@ -648,7 +649,6 @@ a {
       display: inline-block;
       font-size: 30px;
       padding-right: 13.5px;
-      width: 216px;
       text-align: right; }
       @media all and (max-width: 540px) {
         .chapters-list li strong {
