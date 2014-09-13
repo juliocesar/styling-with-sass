@@ -594,13 +594,27 @@ a {
     display: inline-block;
     height: 216px;
     vertical-align: top; }
+    @media all and (max-width: 540px) {
+      .home-header .title,
+      .home-header .sass-logo {
+        height: 84px; } }
   .home-header .title {
     font-size: 51px;
     line-height: 216px;
     margin: 0;
     color: #e0434e; }
+    @media all and (max-width: 540px) {
+      .home-header .title {
+        font-size: 37px;
+        line-height: 84px; } }
   .home-header .sass-logo {
     margin-left: 27px; }
+    @media all and (max-width: 540px) {
+      .home-header .sass-logo {
+        margin-left: 10.5px; } }
+  @media all and (max-width: 540px) {
+    .home-header {
+      margin: 42px auto; } }
 
 .home-footer {
   width: 100%;
@@ -609,25 +623,48 @@ a {
   .home-footer p {
     font-size: 18px;
     line-height: 27px; }
+    @media all and (max-width: 540px) {
+      .home-footer p {
+        font-size: 15px;
+        line-height: 21px; } }
+  @media all and (max-width: 540px) {
+    .home-footer {
+      padding: 0 21px;
+      margin: 42px auto; } }
 
-.toc-section .chapter-list {
+.chapters-list {
   width: 540px;
   margin: 54px auto 0;
-  list-style: none; }
-  .toc-section .chapter-list li {
+  list-style: none;
+  text-align: center; }
+  .chapters-list li {
     font-size: 23px;
     line-height: 27px;
     margin-top: 13.5px;
     text-align: left; }
-    .toc-section .chapter-list li.upcoming {
+    .chapters-list li.upcoming {
       opacity: .5;
       pointer-events: none; }
-    .toc-section .chapter-list li strong {
+    .chapters-list li strong {
       display: inline-block;
       font-size: 30px;
       padding-right: 13.5px;
-      width: 216px;
       text-align: right; }
+      @media all and (max-width: 540px) {
+        .chapters-list li strong {
+          font-size: 23px;
+          width: -webkit-calc(50% - 42px);
+          width: calc(50% - 42px);
+          padding-right: 10.5px; } }
+    @media all and (max-width: 540px) {
+      .chapters-list li {
+        font-size: 19px;
+        line-height: 21px;
+        margin-top: 10.5px; } }
+  @media all and (max-width: 540px) {
+    .chapters-list {
+      width: 100%;
+      margin: 42px auto 0; } }
 
 .chapter-section {
   width: 100%;
@@ -673,12 +710,10 @@ a {
     border: 0;
     -webkit-overflow-scrolling: touch; }
   .chapter-section article code {
-    font-size: 14px;
-    line-height: 27px; }
+    font-size: 14px; }
     @media all and (max-width: 540px) {
       .chapter-section article code {
-        font-size: 12px;
-        line-height: 21px; } }
+        font-size: 12px; } }
   .chapter-section article abbr {
     border-bottom: 1px dotted currentColor;
     font-style: italic; }
