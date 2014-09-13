@@ -682,6 +682,8 @@ a {
       .chapter-section > h1 {
         font-size: 29px;
         line-height: 42px; } }
+  .chapter-section .modules-navigation {
+    margin-top: 54px; }
   .chapter-section article:first-of-type {
     margin-top: 108px; }
     @media all and (max-width: 540px) {
@@ -820,3 +822,23 @@ a {
     .chapter-section {
       padding: 21px;
       margin: 84px auto; } }
+
+.modules-navigation {
+  text-align: center; }
+  .modules-navigation a {
+    font-size: 18px;
+    line-height: 27px;
+    display: inline-block;
+    padding: 0 13.5px;
+    border-radius: 3ex;
+    background: #e0434e;
+    color: #f2f2f2;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 1px 1px 0 #b81e29; }
+    @media all and (max-width: 540px) {
+      .modules-navigation a {
+        font-size: 15px;
+        line-height: 21px;
+        display: inline-block;
+        padding: 0 10.5px; } }
