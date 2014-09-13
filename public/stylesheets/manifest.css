@@ -648,6 +648,8 @@ a {
     .chapters-list li strong {
       display: inline-block;
       font-size: 30px;
+      width: -webkit-calc(50% - 27px);
+      width: calc(50% - 27px);
       padding-right: 13.5px;
       text-align: right; }
       @media all and (max-width: 540px) {
