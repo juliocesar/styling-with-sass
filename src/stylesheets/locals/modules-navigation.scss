@@ -1,0 +1,24 @@
+// Modules navigation
+// ==================
+
+.modules-navigation {
+  text-align: center;
+
+  a {
+    @include font-size(0);
+    display: inline-block;
+    padding: 0 units(.5);
+    border-radius: 3ex;
+    background: $red;
+    color: $white;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 1px 1px 0 darken($red, 15%);
+
+    @include breakpoint(small) {
+      @include font-size(0, small);
+      display: inline-block;
+      padding: 0 units(.5, small);
+    }
+  }
+}
