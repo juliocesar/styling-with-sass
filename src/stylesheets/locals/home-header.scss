@@ -10,6 +10,10 @@
     display: inline-block;
     height: columns(2);
     vertical-align: top;
+
+    @include breakpoint(small) {
+      height: columns(1, small);
+    }
   }
 
   .title {
@@ -17,9 +21,22 @@
     line-height: columns(2);
     margin: 0;
     color: $red;
+
+    @include breakpoint(small) {
+      font-size: font-scale(4, small);
+      line-height: columns(1, small);
+    }
   }
 
   .sass-logo {
     margin-left: units(1);
+
+    @include breakpoint(small) {
+      margin-left: units(.5, small);
+    }
+  }
+
+  @include breakpoint(small) {
+    margin: units(2, small) auto;
   }
 }
