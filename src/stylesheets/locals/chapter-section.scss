@@ -62,10 +62,10 @@
     }
 
     code {
-      @include font-size(-1);
+      font-size: font-scale(-1);
 
       @include breakpoint(small) {
-        @include font-size(-1, small);
+        font-size: font-scale(-1, small);
       }
     }
 
