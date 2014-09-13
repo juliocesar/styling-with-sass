@@ -632,37 +632,37 @@ a {
       padding: 0 21px;
       margin: 42px auto; } }
 
-.toc-section .chapter-list {
+.chapters-list {
   width: 540px;
   margin: 54px auto 0;
   list-style: none; }
-  .toc-section .chapter-list li {
+  .chapters-list li {
     font-size: 23px;
     line-height: 27px;
     margin-top: 13.5px;
     text-align: left; }
-    .toc-section .chapter-list li.upcoming {
+    .chapters-list li.upcoming {
       opacity: .5;
       pointer-events: none; }
-    .toc-section .chapter-list li strong {
+    .chapters-list li strong {
       display: inline-block;
       font-size: 30px;
       padding-right: 13.5px;
       width: 216px;
       text-align: right; }
       @media all and (max-width: 540px) {
-        .toc-section .chapter-list li strong {
+        .chapters-list li strong {
           font-size: 23px;
           width: -webkit-calc(50% - 42px);
           width: calc(50% - 42px);
           padding-right: 10.5px; } }
     @media all and (max-width: 540px) {
-      .toc-section .chapter-list li {
+      .chapters-list li {
         font-size: 19px;
         line-height: 21px;
         margin-top: 10.5px; } }
   @media all and (max-width: 540px) {
-    .toc-section .chapter-list {
+    .chapters-list {
       width: 100%;
       margin: 42px auto 0; } }
 
