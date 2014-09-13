@@ -710,12 +710,10 @@ a {
     border: 0;
     -webkit-overflow-scrolling: touch; }
   .chapter-section article code {
-    font-size: 14px;
-    line-height: 27px; }
+    font-size: 14px; }
     @media all and (max-width: 540px) {
       .chapter-section article code {
-        font-size: 12px;
-        line-height: 21px; } }
+        font-size: 12px; } }
   .chapter-section article abbr {
     border-bottom: 1px dotted currentColor;
     font-style: italic; }
