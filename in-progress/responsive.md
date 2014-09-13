@@ -1,0 +1,3 @@
+* The experts seem capable at coining good ideas, but then incapable of explaining the nuances behind them. Mobile first became a mantra to such an absurd point that it's nearly impossible having a discussion about design, UX, or CSS even where if you don't open with that, everyone thinks you have no idea what you're talking about.
+
+It's stupid to even think that mobile first is more than just a strategy, and not the ultimate at that. What really matters is this: pick a direction to which you respond to, be it larger to smaller displays or vice-versa, and then stick to that strategy throughout the implementation.
