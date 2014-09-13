@@ -190,7 +190,10 @@
           What I’m describing here is the same approach implemented by <a href="http://www.gridlover.net/">Gridlover</a>. Gridlover is an excellent tool for generating a scale which you can copy and paste into your styles. If you’re not familiar, go play with it and fiddle with the values a little. This will help clarifying the concepts explained thus far, and visualising how text fits inside lines.
         </p>
         <p>
-          What will usually happen is you will have 3 scales: one for small displays, one for medium, and one for large. When we address responsiveness later on in this booklet, we will go through the use of the first and last scales. For now, know that the functions and mixins coming up next will default to using medium.
+          Having a single combination of font size, unit, and scale, won’t be enough to accommodate all of your sizing needs since what suits the average laptop display size will not suit a mobile phone, or a large 27" monitor. Therefore you’ll usually keep around one combination for each. This is not the end all of sizing, but enough for most needs.
+        </p>
+        <p>
+          When we address responsiveness later on in this booklet, we will go through the use of the first and last scales. For now, know that the functions and mixins coming up next will default to using <code class="language-scss">medium</code>.
         </p>
         <pre><code class="language-scss">$displays: (
   small: (
@@ -249,7 +252,7 @@
   width: units(8);
 };</code></pre>
         <p>
-          In keeping with the lingo, and to avoid overly high numbers being passed to<code class="language-scss">units()</code> which end up not meaning much to a human, <code class="language-scss">column()</code> outputs a column width. The convention this sets is that a column width is 4 units. You could potentially keep this factor in a variable outside of this method.
+          In keeping with the lingo, and to avoid overly high numbers being passed to <code class="language-scss">units()</code> which end up not meaning much to a human, <code class="language-scss">column()</code> outputs a column width. The convention this sets is that a column width is 4 units. You could potentially keep this factor in a variable outside of this method.
         </p>
         <pre><code class="language-scss">@function columns($x, $size: 'medium') {
   @return units(4, $size) * $x;
