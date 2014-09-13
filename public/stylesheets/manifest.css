@@ -592,20 +592,20 @@ a {
   .home-header .title,
   .home-header .sass-logo {
     display: inline-block;
-    height: 216px;
+    height: 162px;
     vertical-align: top; }
     @media all and (max-width: 540px) {
       .home-header .title,
       .home-header .sass-logo {
         height: 84px; } }
   .home-header .title {
-    font-size: 51px;
-    line-height: 216px;
+    font-size: 40px;
+    line-height: 162px;
     margin: 0;
     color: #e0434e; }
     @media all and (max-width: 540px) {
       .home-header .title {
-        font-size: 37px;
+        font-size: 29px;
         line-height: 84px; } }
   .home-header .sass-logo {
     margin-left: 27px; }

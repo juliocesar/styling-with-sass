@@ -8,7 +8,7 @@
   .title,
   .sass-logo {
     display: inline-block;
-    height: columns(2);
+    height: units(6);
     vertical-align: top;
 
     @include breakpoint(small) {
@@ -17,13 +17,13 @@
   }
 
   .title {
-    font-size: font-scale(4);
-    line-height: columns(2);
+    font-size: font-scale(3);
+    line-height: units(6);
     margin: 0;
     color: $red;
 
     @include breakpoint(small) {
-      font-size: font-scale(4, small);
+      font-size: font-scale(3, small);
       line-height: columns(1, small);
     }
   }
