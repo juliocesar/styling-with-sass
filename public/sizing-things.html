@@ -246,7 +246,7 @@
   width: units(8);
 };</code></pre>
         <p>
-          In keeping with the lingo, and to avoid overly high values of <code class="language-scss">units()</code> which end up not meaning much, <code class="language-scss">column()</code> outputs a column width. The convention this sets is that a column width is 4 units. You could potentially keep this factor in a variable outside of this method.
+          In keeping with the lingo, and to avoid overly high numbers being passed to<code class="language-scss">units()</code> which end up not meaning much to a human, <code class="language-scss">column()</code> outputs a column width. The convention this sets is that a column width is 4 units. You could potentially keep this factor in a variable outside of this method.
         </p>
         <pre><code class="language-scss">@function columns($x, $size: 'medium') {
   @return units(4, $size) * $x;
@@ -278,6 +278,10 @@
           An example of it in action:
         </p>
         <pre><code class="language-scss">.an-article {
+  h1 {
+    @include font-size(3);
+  }
+
   p {
     @include font-size(0);
   }
@@ -287,7 +291,7 @@
         </p>
         <ol>
           <li>
-            After some digging, we fetch the base unit from the scale specified in the second argument (if no argument, it'll default to <code class="language-scss">medium</code>) and put it into a <code class="language-scss">$lh</code> variable. This variable will contain the minimum valid height for a <code class="language-scss">line-height</code>, which is always 1 unit.
+            After some digging, we fetch the base unit from the scale specified in the second argument (if no argument is passed, it'll default to <code class="language-scss">medium</code>) and put it into a <code class="language-scss">$lh</code> variable. This variable will contain the minimum valid height for a <code class="language-scss">line-height</code>, which is always 1 unit.
           </li>
           <li>
             In a <code class="language-scss">@while</code> loop, we increment <code class="language-scss">$lh</code> by one unit until it can accommodate the height of <code class="language-scss">font-scale()</code>.
@@ -306,7 +310,7 @@
         </p>
         <img src="images/two-columns-example.png" class="example-image" data-height-3>
         <p>
-          The first thing most think to do float each to one side, and <a href="http://nicolasgallagher.com/micro-clearfix-hack/">clearfix</a> the root container, which despite working, is a gross hack. In reality, you don't want to <strong>float</strong> anything as you would with, say, an image that’s inside a paragraph which is meant to be on the right side of the text. The two sub-containers are inline block elements. Meaning: they are block elements that don’t take the entire horizontal space unless you set their width to that.
+          The first thing most think to do float each to one side, and <a href="http://nicolasgallagher.com/micro-clearfix-hack/">clearfix</a> the root container, which despite working, is a gross hack. In reality, you don’t want to <strong>float</strong> anything as you would with, say, an image that’s inside a paragraph which is meant to be on the right side of the text. The two sub-containers are inline block elements. Meaning: they are block elements that don’t take the entire horizontal space unless you set their width to that.
         </p>
         <p>
           So you mark it up like this:
@@ -341,7 +345,7 @@
         </p>
         <img src="images/two-columns-broken.png" class="example-image" data-height-4>
         <p>
-        The “problem” is the existence of something known as a <a href="http://www.w3schools.com/jsref/met_document_createtextnode.asp">text node</a>. A text node is how the browser understands <strong>just the text</strong> that’s within a tag. And guess what: what’s separating the two inner tags above, in the writing of the HTML, the carriage return or “enter” you pressed, is one of those. And they take space too.
+        The “problem” is the existence of something known as a <a href="http://www.w3schools.com/jsref/met_document_createtextnode.asp">text node</a>. A text node is how the browser understands <strong>just the text</strong> that’s within a tag. And guess what: what’s separating the two inner tags above, in the writing of the HTML, the carriage return or “enter” you pressed, is one of those. And it takes space too.
         </p>
         <p>
           If you rewrite the markup so it looks like this:
@@ -350,11 +354,11 @@
   &lt;div class=&quot;container-a&quot;&gt;&lt;/div&gt;&lt;div class=&quot;container-b&quot;&gt;&lt;/div&gt;
 &lt;/div&gt;</code></pre>
         <p>
-          Then you'll get what you expect:
+          Then you’ll get what you expect:
         </p>
         <img src="images/two-columns-right.png" class="example-image" data-height-4>
         <p>
-          Since as you can see text nodes take space too, in reality, you're asking for <code class="language-scss">.wrapper</code> to contain the two sub containers (each with a width of 50%) <strong>plus</strong> one text node, which is just enough to derail the whole thing.
+          Since as you can see text nodes take space too, so actually, you’re asking for <code class="language-scss">.wrapper</code> to contain the two sub containers (each with a width of 50%) <strong>plus</strong> one text node, which is just enough to derail the whole thing.
         </p>
         <p>
           But surely we don’t want to write shitty markup for the sake of things working as you’d expect in the first place. Since the role of the root wrapper is really to just contain the sub-containers and no text, the <strong>correct</strong> way to solve this is setting the size of text for the root wrapper to zero. It can then be restored in the sub-containers themselves, or in any text tags there may be in them.
@@ -388,7 +392,7 @@
           One last technique worth mentioning is <code class="language-scss">calc()</code>. Calc is a CSS function which, to make a long story short, it lets you mix different measurement units.
         </p>
         <p>
-          It's especially helpful when you mix fluid containers with containers that have fixed dimensions. Click (or touch) and hold over the container below to see it in action.
+          It’s especially helpful when you mix fluid containers with containers that have fixed dimensions. Click (or touch) and hold over the container below to see it in action.
         </p>
         <div class="calc-fluid-wrapper" ontouchstart="">
           <div class="fluid-wrapper">
