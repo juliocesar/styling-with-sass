@@ -699,7 +699,12 @@ a {
   .chapter-section article p,
   .chapter-section article li {
     font-size: 23px;
-    line-height: 27px; }
+    line-height: 27px;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+    text-rendering: optimizeLegibility; }
     @media all and (max-width: 540px) {
       .chapter-section article p,
       .chapter-section article li {

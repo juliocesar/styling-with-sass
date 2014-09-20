@@ -45,6 +45,8 @@
     p,
     li {
       @include font-size(1);
+      hyphens: auto;
+      text-rendering: optimizeLegibility;
 
       @include breakpoint(small) {
         @include font-size(1, small);
