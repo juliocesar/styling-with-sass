@@ -61,6 +61,33 @@ If you write code in other languages, you’ll notice these ideas are largely ba
 
 ###
 
+A Sass module is the implementation of all *features* in the component design, not just the code necessary to reflect a static snapshot of how things look. When you approach writing it with that mindset, things tend to go a lot better.
+
+For instance, say you’ve received a mockup that looks like this:
+
+*horizontal list of things*
+
+Most would simply write a horizontal list and call it a day. But ask yourself these:
+
+* How many items in average this list would have?
+* Is it possible that it’d have twice as many as what’s in the design? Or that any of the entries could be many words long? Or with a single, long word?
+* How is it supposed to look on smaller screens? Can we abbreviate the text? How would that look an entry wrapped across lines look?
+
+It’s impressive how such a small component can yield this many questions, but thinking through these creates design that’s better at solving problems, which helps you avoid paying later with interest for what you don’t foresee initially only because you failed to address the basics the design should be providing answers for.
+
+Let’s assume that these are the answers:
+
+* Up to 8 items.
+* Long words are allowed.
+* Text can be abbreviated in small screens.
+* No breaking entries by wrapping lines.
+
+*example implementation*
+
+That looks good, or as good as that’ll ever get. Another point this reveals is that most designs are always vulnerable in some ways, and won’t necessarily be the better solution anymore when enough changes are made in the environment that they’re in.
+
+###
+
 What was explained thus far suggests an approach to styling components that says we are using class names that describe what the component is, and all styles come from that class name (aside from styles shared across classes). This isn’t the only way to go about it, though.
 
 Certain libraries will do the composition on the markup by adding various class names that carry a set of directives each, where then these class names are similar to ingredients carrying certain properties. For example, this snippet from [Semantic UI](http://semantic-ui.com/) (ignore the grossness of using a `div` for a button):
@@ -152,30 +179,3 @@ But that doesn’t address the fact that you’re *still* potentially loading a 
     <menu class="main-menu" style="<%= compiledStyles('main-menu.scss') %>">
       …
     </menu>
-
-###
-
-A Sass module is the implementation of all *features* in the component design, not just the code necessary to reflect a static snapshot of how things look. When you approach writing it with that mindset, things tend to go a lot better.
-
-For instance, say you’ve received a mockup that looks like this:
-
-*horizontal list of things*
-
-Most would simply write a horizontal list and call it a day. But ask yourself these:
-
-* How many items in average this list would have?
-* Is it possible that it’d have twice as many as what’s in the design? Or that any of the entries could be many words long? Or with a single, long word?
-* How is it supposed to look on smaller screens? Can we abbreviate the text? How would that look an entry wrapped across lines look?
-
-It’s impressive how such a small component can yield this many questions, but thinking through these creates design that’s better at solving problems, which helps you avoid paying later with interest for what you don’t foresee initially only because you failed to address the basics the design should be providing answers for.
-
-Let’s assume that these are the answers:
-
-* Up to 8 items.
-* Long words are allowed.
-* Text can be abbreviated in small screens.
-* No breaking entries by wrapping lines.
-
-*example implementation*
-
-That looks good, or as good as that’ll ever get. Another point this reveals is that most designs are always vulnerable in some ways, and won’t necessarily be the better solution anymore when enough changes are made in the environment that they’re in.
