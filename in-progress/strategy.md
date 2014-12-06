@@ -61,15 +61,15 @@ If you write code in other languages, you’ll notice these ideas are largely ba
 
 ###
 
-What was explained thus far suggests an approach to styling components that translates into these facts: we are using class names that say what the component is, and all styles come from that class name (aside from styles shared across classes). This isn’t the only way to go about it, though.
+What was explained thus far suggests an approach to styling components that says we are using class names that describe what the component is, and all styles come from that class name (aside from styles shared across classes). This isn’t the only way to go about it, though.
 
-Certain libraries will do the composition on the markup, by adding class names that carry a set of directives. For instance, this example from [Semantic UI](http://semantic-ui.com/) (ignore the grossness of using a `div` for a button):
+Certain libraries will do the composition on the markup by adding various class names that carry a set of directives each, where then these class names are similar to ingredients carrying certain properties. For example, this snippet from [Semantic UI](http://semantic-ui.com/) (ignore the grossness of using a `div` for a button):
 
     <div class="ui primary download button">
       Download
     </div>
 
-We could source the styles for those classes from their own files. It would amount to the same as this:
+We could source the classes from their own files. As far as visual outcomes go, it would amount to the same:
 
     // Primary download button
     // =======================
@@ -81,7 +81,9 @@ We could source the styles for those classes from their own files. It would amou
       @include button;
     }
 
-With the difference being that the class name the button exposes carrying a more descriptive name. There are other patterns which make use of tag attributes, such as [AMCSS](http://amcss.github.io/), where the core group of directives comes from the attribute name, with modifiers being passable as values, as in:
+With the difference being that the class name the button exposes in the previous example carries a more descriptive name.
+
+There are other patterns which make use of tag attributes, such as [AMCSS](http://amcss.github.io/), where the core group of directives comes from the attribute name `am-Button`, with modifiers being passable as values to it, as in:
 
     <button am-Button="primary large">
       Download
@@ -94,7 +96,7 @@ With the difference being that the class name the button exposes carrying a more
       …
     }
 
-Or my own preferred approach, where you let a few modifiers in that can be passed as “commands” to the class name, not unlike AMCSS in that regard:
+Modifiers are class names that change the original set of styles in some way. You can think of them as parameters to a command that modify the outcome in a way that makes sense. In my own preferred approach, you let a few modifiers in that can be passed as “commands” to the class name, not unlike AMCSS in that regard:
 
     // Default form styles
     // ===================
@@ -121,11 +123,11 @@ Which lets you write markup like this:
       …
     </form>
 
-This is all logic juggling. None of these patterns make any of it disappear, but they’ll help you distribute it more sensibly, some being more effective at it than others, but all still largely depending on how smartly you split that logic in the first place.
+Understand that this is all logic juggling. None of these patterns make problems disappear, but they’ll help you distribute them more sensibly. Some being more effective at that than others, but all still largely depending on how smartly you split that logic in the first place.
 
 ##
 
-Manifests in stylesheets are lists of stylesheet modules required to load a certain page. There are no hard rules on how to write these, but being clear can go a long way. Assume this is called `application-manifest.scss`.
+Manifests in stylesheets are lists of modules required to load a certain page. There are no hard rules on how to write these, but being clear can go a long way. Assume this is called `application-manifest.scss`.
 
     // Application styles manifest
     // ===========================
@@ -141,13 +143,19 @@ Manifests in stylesheets are lists of stylesheet modules required to load a cert
     @import 'notifications-wrapper';
     @import 'page-footer';
 
-In saying “page”, there’s an immediate problem that comes to mind: in JavaScript apps, there’s hardly such a concept, past the initial delivery. So depending on how your website is used (this, by the way, is a *huge* factor), a lot of waste can happen with selectors that will never apply during a given session, and are loaded anyway.
+In saying “page”, there’s an immediate problem that comes to mind: in JavaScript apps, there’s hardly such a concept past the initial delivery. So depending on how your website is used (this, by the way, is an important consideration when optimising), a lot of waste can happen with selectors that will never apply during a given session, and are loaded anyway.
 
-The solution to this problem is way out of the scope of this booklet, so I’m only mentioning it to make others aware that what I’m suggesting when I tell you to write a manifest is that you are really loading all the styles for an application/website, and that depending on certain factors, it can be a problem.
+The thing is: despite performance being *very* important, manifests are still useful for grouping modules. An approach coined recently by some consists of loading critical styles at the top of the page, and then the remaining at the bottom (and maybe even more fine grained than that, but bear with me). You can write two manifests, one `essentials-manifest.scss` sourced in the `<head>`, and a `remaining-manifest.scss` sourced before the `<body>` ends. This can be tricky to do effectively without splitting writing component styles between essentials and enhancements, as you don’t want the page to flash as entirely garbled for a split second (or more, who knows) until things such as positional and dimensioning values are loaded.
+
+But that doesn’t address the fact that you’re *still* potentially loading a lot of styles that won’t be used in a given session. The solution to this won’t be cheap logic-wise, but at the cost of some code in the build script, you can retain manifests as files, but output their compiled contents to a `style` attribute in the corresponding element, or even as a `<style>` tag directly in the DOM by using templates and helpers. An example of the former:
+
+    <menu class="main-menu" style="<%= compiledStyles('main-menu.scss') %>">
+      …
+    </menu>
 
 ###
 
-A Sass module is the implementation of all *features* in the design, not just the code necessary to reflect a static snapshot of how things look. When you approach writing it with that mindset, things tend to go a lot better.
+A Sass module is the implementation of all *features* in the component design, not just the code necessary to reflect a static snapshot of how things look. When you approach writing it with that mindset, things tend to go a lot better.
 
 For instance, say you’ve received a mockup that looks like this:
 
