@@ -1,12 +1,14 @@
-* Resets and normalisations are agreements, and while they can be helpful, understanding their coverage really well is a good idea. A reset is generally can’t go wrong since its purpose is simply getting rid of styling-by-accident, which is what happens when you rely on browser-given styles for something. A normalisation, whether it’s something introduced by [a library](http://necolas.github.io/normalize.css/) (and in the case of Normalize.css, you can think of it as a less brutal reset) or one you write yourself, has no business existing unless it’s very likely to be the case that they will be applying across every element that they touch.
+* Resets and normalisations are agreements, and while they are certainly helpful, understanding their coverage really well is a good idea. You generally can’t go wrong with a working reset since its purpose is simply getting rid of styling-by-accident, which is what happens when you rely on browser-given styles for something. A normalisation, whether it’s something introduced by [a library](http://necolas.github.io/normalize.css/) (and in the case of Normalize.css, you can think of it as a less brutal reset) or one you write yourself, has no business existing unless it’s very likely to be the case that they will be applying across every element that they touch.
 
-A common example of an overly broad agreement is, for instance, when styling a paragraph, people decide that it probably means adding a default font size and margins on a root `p` tag selector directly is a good idea as a first step. The problem is knowing whether that agreement won’t, in fact, create more work than it’ll prevent. As much else, a better approach is to *mindfully* repeat yourself a little and only then refactor when repetition starts happening to a small but significant level.
+There is though a huge difference between what Normalize.css does and what other kinds of normalisations do: Normalize.css is what you could consider a softer reset. It will still enforce cross-browser consistency, as would a with a reset, but it’ll assume you want the defaults it provides.
 
-In short: always reset, but be careful with extra normalisations.
+A common example of a broad, custom normalisation is when styling a paragraph, deciding that it probably means adding a default font size and margins on a root `p` tag selector directly is a good idea as a first step. The problem is knowing whether that agreement won’t, in fact, create more work than it’ll prevent (the all too common behaviour of then erasing those defaults more than not). As much else, a better approach is to *mindfully* repeat yourself a little and only then refactor when repetition starts happening to a small but significant level.
+
+In short: always reset, but be careful with normalisations.
 
 ##
 
-If people all around figured the correct way to drive is back-facing the wheel, that wouldn’t make it a good idea considering not colliding into things is important. This metaphor explains how most people understand and use the *Cascading* in *Stylesheets*. They’ll drive it backwards, hit something, and then go on Twitter say cars are inherently bad and that we all oughta be walking instead.
+If most people figured the correct way to drive is back-facing the wheel, that wouldn’t make it a good idea considering not colliding into things is important. This metaphor explains how most people understand and use the *Cascading* in *Stylesheets*. They’ll drive it backwards, hit something, and then go on Twitter say cars are inherently bad and that we all oughta be walking instead.
 
 You need to control the cascading, and the best way to go about it is by not use it at first, and then apply it judiciously where it makes sense. It really is that simple. This has a big impact on further advice, so I’ll go on a little tangent here: early in the intro chapter, I referred to a SCSS file as a “module”. The approach to that which I’m selling here is as follows:
 
@@ -15,15 +17,15 @@ You need to control the cascading, and the best way to go about it is by not use
 3) In this file, besides styles relevant only to the component, we’ll also keep variables and media queries that apply to it.
 4) As internal parts of a component become more complex, we move them into their own files.
 
-Unlike [CommonJS](http://wiki.commonjs.org/wiki/CommonJS), or its well-known implementation, the Node.js module system, we aren’t getting the benefits of isolation in variable declaration and such with Sass. So everything is a global, and we have to live with that at least for now. On the upside, we will only ever declare variables when we need to coordinate a value, either within the same file, or when the intention is making said value available to other modules. And we will be extremely careful when we do that, by making it really obvious this module is now to be understood as a dependency.
+Unlike [CommonJS](http://wiki.commonjs.org/wiki/CommonJS), or its well-known implementation, the Node.js module system, we aren’t getting the benefits of isolation in variable declaration and such with Sass. So everything is a global, and we have to live with that at least for now. On the upside, we will only ever declare variables when we need to coordinate a value across directives, either within the same file, or when the intention is making said value available to other modules. And then we’ll be making it really obvious that this module is now to be understood as a dependency.
 
-This approach will let us:
+This will let us:
 
-* Keep our agreements isolated, so even if we decide to do something like adding defaults to all buttons within a module, there’s still sanity to it:
+* Keep our agreements isolated, so even if we decide to do something like adding defaults to all buttons within a module, there’s still sanity in the fact it’s isolated:
 
     .main-navigation {
 
-      // This applies to all buttons.
+      // This applies to all buttons inside this selector.
       button {
         outline: none;
         background: transparent;
@@ -34,8 +36,10 @@ This approach will let us:
 
     // very-nice-button.scss
     .very-nice-button {
-      border: 1px solid black;
+      border: 3px solid black;
       background: transparent;
+      border-radius: 2ex;
+      color: $black;
 
       .icon {
         color: $orange;
@@ -53,7 +57,7 @@ This approach will let us:
       }
     }
 
-If you write code in other languages, you’ll notice these ideas are largely based on existing modularisation concepts. This is not by accident. Instead of running around with our heads on fire saying CSS is doomed, we reap the benefits of existing logical frameworks that happened to be similar to good mindsets we’re already applying elsewhere.
+If you write code in other languages, you’ll notice these ideas are largely based on existing modularisation concepts. This is not by accident. Instead of running around with our heads on fire saying CSS is doomed to fail, we reap the benefits of existing logical frameworks that are similar to ideal mindsets we’re already applying elsewhere.
 
 ###
 
