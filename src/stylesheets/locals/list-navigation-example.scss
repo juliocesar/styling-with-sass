@@ -1,0 +1,45 @@
+// List navigation example
+// =======================
+
+$list-navigation-example-radius: 1ex;
+
+.list-navigation-example {
+  transition: all .5s ease-out;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 0;
+  text-align: center;
+
+  &.medium {
+    width: 50%;
+  }
+
+  &.small {
+    width: 25%;
+  }
+
+  a {
+    @include font-size(0);
+    display: inline-block;
+    padding: 0 units(.5);
+    color: $white;
+    background: $red;
+    text-decoration: none;
+    text-shadow: 1px 1px 0 darken($red, 25%);
+    user-select: none;
+
+    &:hover {
+      background: darken($red, 25%);
+    }
+
+    &:first-of-type {
+      border-top-left-radius: $list-navigation-example-radius;
+      border-bottom-left-radius: $list-navigation-example-radius;
+    }
+
+    &:last-of-type {
+      border-top-right-radius: $list-navigation-example-radius;
+      border-bottom-right-radius: $list-navigation-example-radius;
+    }
+  }
+}

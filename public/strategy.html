@@ -22,7 +22,7 @@
           You generally can’t go wrong with a reset since its purpose is simply getting rid of styling-by-accident, which is what happens when you rely on browser-given styles for something. A normalisation, whether it’s something introduced by <a href="http://necolas.github.io/normalize.css/">a library</a> (and in the case of Normalize.css, you can think of it as a less brutal reset) or one you write yourself, has no business existing unless it’s very likely to be the case that they will be applying across every element that they touch.
         </p>
         <p>
-          A common example of a broad, custom normalisation is when styling a paragraph, deciding that it probably means adding a default font size and margins on a root `p` tag selector directly is a good idea as a first step. The problem is knowing whether that agreement won’t, in fact, create more work than it’ll prevent (the all too common behaviour of then erasing those defaults more than not). As much else, a better approach is to <strong>mindfully</strong> repeat yourself a little and only then refactor when repetition starts happening to a small but significant level.
+          A common example of normalisation is when styling paragraphs within a component, deciding that it probably means adding a default font size and margins on a root <code class="language-scss">p</code> tag selector as a first step. The problem is knowing whether that agreement won’t, in fact, create more work than it’ll prevent (the all too common behaviour of then erasing those defaults more than not). As much else, a better approach is to <strong>mindfully</strong> repeat yourself a little and only then refactor when repetition starts happening to a small but significant level.
         </p>
         <p>
           In short: always reset, but be careful with normalisations.
@@ -101,14 +101,15 @@
           A Sass module is the implementation of all <strong>features</strong> in the component design, not just the code necessary to reflect a static snapshot of how things look. When you approach writing it with that mindset, things tend to go a lot better.
         </p>
         <p>
-          For instance, say you’ve received a mockup that looks like this:
+          For instance, say you’ve received a mockup for a component that looks like this:
         </p>
+        <img src="images/list-navigation-example.jpg" alt="List navigation example" class="mockup-image example-image">
         <p>
           Most would simply write a horizontal list and call it a day. But ask yourself these:
         </p>
         <ul>
           <li>
-            How many items in average this list would have?
+            Does the mockup really reflect how many items this list could have in average?
           </li>
           <li>
             Is it possible that it’d have twice as many as what’s in the design? Or that any of the entries could be many words long? Or with a single, long word?
@@ -118,7 +119,7 @@
           </li>
         </ul>
         <p>
-          It’s impressive how such a small component can yield this many questions, but thinking through these creates design that’s better at solving problems, which helps you avoid paying later with interest for what you don’t foresee initially only because you failed to address the basics the design should be providing answers for.
+          It’s impressive how such a small component can yield this many questions, but thinking through these creates design that’s better at solving problems, which helps you avoid paying later with interest for what you don’t foresee initially only because you failed to address the basics.
         </p>
         <p>
           Let’s assume that these are the answers:
@@ -137,6 +138,13 @@
             No breaking entries by wrapping lines.
           </li>
         </ul>
+        <nav class="list-navigation-example large">
+          <a>All vegetables</a>
+          <a>Other produce</a>
+          <a>Kitchen stuff</a>
+          <a>Hardware &amp; electronics</a>
+          <a>Personal hygiene</a>
+        </nav>
         <p>
           That looks good, or as good as that’ll ever get. Another point this reveals is that most designs are always vulnerable in some ways, and won’t necessarily be the better solution anymore when enough changes are made in the environment that they’re in.
         </p>
@@ -230,7 +238,7 @@
           In saying “page”, there’s an immediate problem that comes to mind: in JavaScript apps, there’s hardly such a concept past the initial delivery. So depending on how your website is used (this, by the way, is an important consideration when optimising), a lot of waste can happen with selectors that will never apply during a given session, and are loaded anyway.
         </p>
         <p>
-          The thing is: despite performance being <strong>very</strong> important, manifests are still useful for grouping modules. An approach coined recently by some consists of loading critical styles at the top of the page, and then the remaining at the bottom (and maybe even more fine grained than that, but bear with me). You can write two manifests, one `essentials-manifest.scss` sourced in the <code class="language-markup">&lt;head&gt;</code>, and a <code class="language-scss">remaining-manifest.scss</code> sourced before the <code class="language-markup">&lt;body&gt;</code> ends. This can be tricky to do effectively without splitting writing component styles between essentials and enhancements, as you don’t want the page to flash as entirely garbled for a split second (or more, who knows) until things such as positional and dimensioning values are loaded.
+          The thing is: despite performance being <strong>very</strong> important, manifests are still useful for grouping modules. An approach coined recently by some consists of loading critical styles at the top of the page, and then the remaining at the bottom (and maybe even more fine grained than that, but bear with me). You can write two manifests, one <code class="language-scss">essentials-manifest.scss</code> sourced in the <code class="language-markup">&lt;head&gt;</code>, and a <code class="language-scss">remaining-manifest.scss</code> sourced before the <code class="language-markup">&lt;body&gt;</code> ends. This can be tricky to do effectively without splitting writing component styles between essentials and enhancements, as you don’t want the page to flash as entirely garbled for even a split second until things such as positional and dimensioning values are loaded.
         </p>
         <p>
           But that doesn’t address the fact that you’re <strong>still</strong> potentially loading a lot of styles that won’t be used in a given session. The solution to this won’t be cheap logic-wise, but at the cost of some code in the build script, you can retain manifests as files, but output their compiled contents to a `style` attribute in the corresponding element, or even as a <code class="language-markup">&lt;style&gt;</code> tag directly in the DOM by using templates and helpers. An example of the former:
@@ -238,17 +246,52 @@
       </article>
       <article>
         <p>
-          Talk about colour palettes here
+          An easy to forego element when implementing a design is colour organisation. There’s a false sense of necessity when it comes to it that leads to sometimes dozens of imperceptible variations if put next to each other. That’s aggravated when a designer loses sight of the whole.
+        </p>
+        <p>
+          Colour, like the choice of typeset, is part of the message, and dillution happens when too many tones are introduced in a design. And a way to keep the issue visible is declaring the palette in a single file through variables, maybe named <code class="language-scss">colour-palette.scss</code>, and using it as a dependency. Like so:
+        </p>
+        <pre><code class="language-scss">// Colour palette
+// =============
+
+// Base tones
+$red: #970808;
+$yellow: #f2f213;
+$white: white;
+
+// Variations
+$dark-red: #3E0000;
+
+// …</code></pre>
+        <p>
+          Sass provides methods for manipulating colour, such as <code class="language-scss">darken()</code> and <code class="language-scss">lighten()</code>. These are handy for creating stale variations. That is, variations that will not be reused throughout the codebase, since to put it simply, if you were to do that, you’d be better off then actually declaring them in the palette file.
+        </p>
+        <p>
+          From a strategic perspective, stale variations are less bad than a number of useless variations coded into the palette because they don’t add to the options, thus discouraging them becoming the norm.
         </p>
       </article>
     </section>
     <script src="javascript/prism.js"></script>
     <script>
+      (function() {
+        var navigationExampleEl = document.querySelector('.list-navigation-example');
+        var navigationClasses = ['large', 'medium', 'small'];
+        var classList = navigationExampleEl.classList;
+        var classIndex = 1;
+
+        navigationExampleEl.addEventListener('click', function() {
+          var nextClass = navigationClasses[classIndex++]
+          classList.remove.apply(classList, navigationClasses);
+          classList.add(nextClass);
+          if (classIndex > navigationClasses.length - 1) classIndex = 0;
+        }, false);
+      })();
+    </script>
+    <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
       ga('create', 'UA-54704138-1', 'auto');
       ga('send', 'pageview');
     </script>

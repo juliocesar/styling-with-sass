@@ -59,6 +59,8 @@ This will let us:
 
 If you write code in other languages, you’ll notice these ideas are largely based on existing modularisation concepts. This is not by accident. Instead of running around with our heads on fire saying CSS is doomed to fail, we reap the benefits of existing logical frameworks that are similar to ideal mindsets we’re already applying elsewhere.
 
+Now, the goal behind this file isn’t just containing the styles necessary for a component to render correctly, but it needs to be documented with a header and if necessary, a short overview of what the approach to styling it is, including things such as the rationale behind an approach if compromises were made for older browsers.
+
 ###
 
 A Sass module is the implementation of all *features* in the component design, not just the code necessary to reflect a static snapshot of how things look. When you approach writing it with that mindset, things tend to go a lot better.

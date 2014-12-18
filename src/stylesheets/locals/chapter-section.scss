@@ -123,6 +123,15 @@
         height: units(3, small);
       }
     }
+
+    .mockup-image {
+      max-width: 50%;
+      height: auto;
+
+      @include breakpoint(small) {
+        max-width: 100%;
+      }
+    }
   }
 
   article + article:before {
