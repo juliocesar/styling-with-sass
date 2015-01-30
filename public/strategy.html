@@ -121,44 +121,13 @@
         <p>
           It’s impressive how such a small component can yield this many questions, but thinking through these creates design that’s better at solving problems, which helps you avoid paying later with interest for what you don’t foresee initially only because you failed to address the basics.
         </p>
-        <p>
-          Let’s assume that these are the answers:
-        </p>
-        <ul>
-          <li>
-            Up to 8 items.
-          </li>
-          <li>
-            Long words are allowed.
-          </li>
-          <li>
-            Text can be abbreviated in small screens.
-          </li>
-          <li>
-            No breaking entries by wrapping lines.
-          </li>
-        </ul>
-        <nav class="list-navigation-example large">
-          <a>All vegetables</a>
-          <a>Other produce</a>
-          <a>Kitchen stuff</a>
-          <a>Hardware &amp; electronics</a>
-          <a>Personal hygiene</a>
-          <a>Something-something-something</a>
-        </nav>
-        <p class="instruction-paragraph">
-          Tap/click anywhere for changing state.
-        </p>
-        <p>
-          That looks good, or as good as that’ll ever get. The main issue here is this pattern isn’t optimal for small resolutions…
-        </p>
       </article>
       <article>
         <p>
           What was explained thus far suggests an approach to styling components that says we are using class names that describe what the component is, and all styles come from that class name (aside from styles shared across classes). This isn’t the only way to go about it, though.
         </p>
         <p>
-          Certain libraries will do the composition on the markup by adding various class names that carry a set of directives each, where then these class names are similar to ingredients carrying certain properties. For example, this snippet from [Semantic UI](http://semantic-ui.com/) (ignore the grossness of using a `div` for a button):
+          Certain libraries will do the composition on the markup by adding various class names that carry a set of directives each, where then these class names are similar to ingredients carrying certain properties. For example, this snippet from <a href="http://semantic-ui.com/">Semantic UI</a> (ignore the grossness of using a <code class="language-markup">div</code> for a button):
         </p>
         <pre><code class="language-markup">&lt;div class=&quot;ui primary download button&quot;&gt;
   Download
@@ -223,7 +192,7 @@
       </article>
       <article>
         <p>
-          Manifests in stylesheets are lists of modules required to load a certain page. There are no hard rules on how to write these, but being clear can go a long way. Assume this is called `application-manifest.scss`:
+          Manifests in stylesheets are lists of modules required to load a certain page. There are no hard rules on how to write these, but being clear can go a long way. Assume this is called <code class="language-scss">application-manifest.scss</code>:
         </p>
         <pre><code class="language-scss">// Application styles manifest
 // ===========================
@@ -245,7 +214,7 @@
           The thing is: despite performance being <strong>very</strong> important, manifests are still useful for grouping modules. An approach coined recently by some consists of loading critical styles at the top of the page, and then the remaining at the bottom (and maybe even more fine grained than that, but bear with me). You can write two manifests, one <code class="language-scss">essentials-manifest.scss</code> sourced in the <code class="language-markup">&lt;head&gt;</code>, and a <code class="language-scss">remaining-manifest.scss</code> sourced before the <code class="language-markup">&lt;body&gt;</code> ends. This can be tricky to do effectively without splitting writing component styles between essentials and enhancements, as you don’t want the page to flash as entirely garbled for even a split second until things such as positional and dimensioning values are loaded.
         </p>
         <p>
-          But that doesn’t address the fact that you’re <strong>still</strong> potentially loading a lot of styles that won’t be used in a given session. The solution to this won’t be cheap logic-wise, but at the cost of some code in the build script, you can retain manifests as files, but output their compiled contents to a `style` attribute in the corresponding element, or even as a <code class="language-markup">&lt;style&gt;</code> tag directly in the DOM by using templates and helpers. An example of the former:
+          But that doesn’t address the fact that you’re <strong>still</strong> potentially loading a lot of styles that won’t be used in a given session. The solution to this won’t be cheap logic-wise, but at the cost of some code in the build script, you can retain manifests as files, but output their compiled contents to a <code class="language-markup">style</code> attribute in the corresponding element, or even as a <code class="language-markup">&lt;style&gt;</code> tag directly in the DOM by using templates and helpers. An example of the former:
         </p>
       </article>
       <article>
@@ -276,21 +245,6 @@ $dark-red: #3E0000;
       </article>
     </section>
     <script src="javascript/prism.js"></script>
-    <script>
-      (function() {
-        var navigationExampleEl = document.querySelector('.list-navigation-example');
-        var navigationClasses = ['large', 'medium', 'small'];
-        var classList = navigationExampleEl.classList;
-        var classIndex = 1;
-
-        navigationExampleEl.addEventListener('click', function() {
-          var nextClass = navigationClasses[classIndex++]
-          classList.remove.apply(classList, navigationClasses);
-          classList.add(nextClass);
-          if (classIndex > navigationClasses.length - 1) classIndex = 0;
-        }, false);
-      })();
-    </script>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

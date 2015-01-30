@@ -862,11 +862,13 @@ a {
 .list-navigation-example {
   display: inline-block;
   font-size: 0;
+  padding: 0 6.75px;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
   background: #e0434e;
-  border-radius: 1ex; }
+  border-radius: 1ex;
+  white-space: nowrap; }
   .list-navigation-example.medium {
     width: 50%; }
   .list-navigation-example.small {
@@ -875,8 +877,7 @@ a {
     font-size: 18px;
     line-height: 27px;
     display: inline-block;
-    max-width: 100%;
-    padding: 0 13.5px;
+    max-width: 33%;
     color: #f2f2f2;
     text-decoration: none;
     text-shadow: 1px 1px 0 #8c171f;
@@ -885,11 +886,14 @@ a {
     -ms-user-select: none;
     user-select: none;
     overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap; }
+    text-overflow: ellipsis; }
     .list-navigation-example a:hover {
       background: #8c171f; }
     @media all and (max-width: 540px) {
       .list-navigation-example a {
+        max-width: 20%;
         font-size: 15px;
         line-height: 31.5px; } }
+  .list-navigation-example a + a:before {
+    content: '|';
+    padding: 0 6.75px; }

@@ -4,11 +4,13 @@
 .list-navigation-example {
   display: inline-block;
   font-size: 0;
+  padding: 0 units(.25);
   margin-left: auto;
   margin-right: auto;
   text-align: center;
   background: $red;
   border-radius: 1ex;
+  white-space: nowrap;
 
   &.medium {
     width: 50%;
@@ -21,23 +23,27 @@
   a {
     @include font-size(0);
     display: inline-block;
-    max-width: 100%;
-    padding: 0 units(.5);
+    max-width: 33%;
     color: $white;
     text-decoration: none;
     text-shadow: 1px 1px 0 darken($red, 25%);
     user-select: none;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
 
     &:hover {
       background: darken($red, 25%);
     }
 
     @include breakpoint(small) {
+      max-width: 20%;
       font-size: font-scale(0, small);
       line-height: units(1.5, small);
     }
+  }
+
+  a + a:before {
+    content: '|';
+    padding: 0 units(.25);
   }
 }
