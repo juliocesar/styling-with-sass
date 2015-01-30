@@ -63,7 +63,6 @@ gulp.task('serve', function() {
 var shell = require('gulp-shell');
 
 gulp.task('deploy', shell.task([
-  'git commit -am "Deployment commit"',
   'git checkout gh-pages',
   'git checkout master -- public .gitignore',
   'cp -r public/* .',
