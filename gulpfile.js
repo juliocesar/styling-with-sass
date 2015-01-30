@@ -62,15 +62,17 @@ gulp.task('serve', function() {
 // Deployment.
 var shell = require('gulp-shell');
 
-gulp.task('deploy', shell.task([
+gulp.task('deploy', ['uglify'], shell.task([
+  'git commit -am "Deployment commit"',
   'git checkout gh-pages',
-  'git checkout master -- public',
+  'git checkout master -- public .gitignore',
   'cp -r public/* .',
-  'git commit -am "Deployment"',
+  'git add .',
+  'git commit -m "Deployment"',
   'git push origin gh-pages',
-  'git checkout master'
+  'git checkout master',
+  'git clean -fd'
 ]));
-
 // ---
 
 // Watch.
