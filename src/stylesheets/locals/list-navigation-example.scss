@@ -1,14 +1,14 @@
 // List navigation example
 // =======================
 
-$list-navigation-example-radius: 1ex;
-
 .list-navigation-example {
-  transition: all .5s ease-out;
+  display: inline-block;
+  font-size: 0;
   margin-left: auto;
   margin-right: auto;
-  font-size: 0;
   text-align: center;
+  background: $red;
+  border-radius: 1ex;
 
   &.medium {
     width: 50%;
@@ -21,25 +21,23 @@ $list-navigation-example-radius: 1ex;
   a {
     @include font-size(0);
     display: inline-block;
+    max-width: 100%;
     padding: 0 units(.5);
     color: $white;
-    background: $red;
     text-decoration: none;
     text-shadow: 1px 1px 0 darken($red, 25%);
     user-select: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 
     &:hover {
       background: darken($red, 25%);
     }
 
-    &:first-of-type {
-      border-top-left-radius: $list-navigation-example-radius;
-      border-bottom-left-radius: $list-navigation-example-radius;
-    }
-
-    &:last-of-type {
-      border-top-right-radius: $list-navigation-example-radius;
-      border-bottom-right-radius: $list-navigation-example-radius;
+    @include breakpoint(small) {
+      font-size: font-scale(0, small);
+      line-height: units(1.5, small);
     }
   }
 }

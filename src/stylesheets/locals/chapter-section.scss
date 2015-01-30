@@ -79,59 +79,6 @@
       border-bottom: 1px dotted currentColor;
       font-style: italic;
     }
-
-    .example-image {
-      display: block;
-      height: units(3);
-      max-width: 100%;
-      margin-right: auto;
-      margin-left: auto;
-
-      &[data-height-1] {
-        height: units(3);
-
-        @include breakpoint(small) {
-          height: units(3, small);
-        }
-      }
-
-      &[data-height-2] {
-        height: units(5);
-
-        @include breakpoint(small) {
-          height: units(5, small);
-        }
-      }
-
-      &[data-height-3] {
-        height: units(10);
-
-        @include breakpoint(small) {
-          height: units(10, small);
-        }
-      }
-
-      &[data-height-4] {
-        height: units(15);
-
-        @include breakpoint(small) {
-          height: units(15, small);
-        }
-      }
-
-      @include breakpoint(small) {
-        height: units(3, small);
-      }
-    }
-
-    .mockup-image {
-      max-width: 50%;
-      height: auto;
-
-      @include breakpoint(small) {
-        max-width: 100%;
-      }
-    }
   }
 
   article + article:before {
@@ -145,6 +92,65 @@
     @include breakpoint(small) {
       height: units(1, small);
       margin: units(2, small) auto units(2, small);
+    }
+  }
+
+  .instruction-paragraph {
+    @include font-size(0);
+    text-align: center;
+    margin-top: units(.5);
+  }
+
+  .example-image {
+    display: block;
+    height: units(3);
+    max-width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+
+    &[data-height-1] {
+      height: units(3);
+
+      @include breakpoint(small) {
+        height: units(3, small);
+      }
+    }
+
+    &[data-height-2] {
+      height: units(5);
+
+      @include breakpoint(small) {
+        height: units(5, small);
+      }
+    }
+
+    &[data-height-3] {
+      height: units(10);
+
+      @include breakpoint(small) {
+        height: units(10, small);
+      }
+    }
+
+    &[data-height-4] {
+      height: units(15);
+
+      @include breakpoint(small) {
+        height: units(15, small);
+      }
+    }
+
+    @include breakpoint(small) {
+      height: units(3, small);
+    }
+  }
+
+  .mockup-image {
+    max-width: 50%;
+    height: auto;
+
+    @include breakpoint(small) {
+      max-width: 100%;
     }
   }
 

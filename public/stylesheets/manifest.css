@@ -726,41 +726,6 @@ a {
   .chapter-section article abbr {
     border-bottom: 1px dotted currentColor;
     font-style: italic; }
-  .chapter-section article .example-image {
-    display: block;
-    height: 81px;
-    max-width: 100%;
-    margin-right: auto;
-    margin-left: auto; }
-    .chapter-section article .example-image[data-height-1] {
-      height: 81px; }
-      @media all and (max-width: 540px) {
-        .chapter-section article .example-image[data-height-1] {
-          height: 63px; } }
-    .chapter-section article .example-image[data-height-2] {
-      height: 135px; }
-      @media all and (max-width: 540px) {
-        .chapter-section article .example-image[data-height-2] {
-          height: 105px; } }
-    .chapter-section article .example-image[data-height-3] {
-      height: 270px; }
-      @media all and (max-width: 540px) {
-        .chapter-section article .example-image[data-height-3] {
-          height: 210px; } }
-    .chapter-section article .example-image[data-height-4] {
-      height: 405px; }
-      @media all and (max-width: 540px) {
-        .chapter-section article .example-image[data-height-4] {
-          height: 315px; } }
-    @media all and (max-width: 540px) {
-      .chapter-section article .example-image {
-        height: 63px; } }
-  .chapter-section article .mockup-image {
-    max-width: 50%;
-    height: auto; }
-    @media all and (max-width: 540px) {
-      .chapter-section article .mockup-image {
-        max-width: 100%; } }
   .chapter-section article + article:before {
     display: block;
     height: 27px;
@@ -772,6 +737,46 @@ a {
       .chapter-section article + article:before {
         height: 21px;
         margin: 42px auto 42px; } }
+  .chapter-section .instruction-paragraph {
+    font-size: 18px;
+    line-height: 27px;
+    text-align: center;
+    margin-top: 13.5px; }
+  .chapter-section .example-image {
+    display: block;
+    height: 81px;
+    max-width: 100%;
+    margin-right: auto;
+    margin-left: auto; }
+    .chapter-section .example-image[data-height-1] {
+      height: 81px; }
+      @media all and (max-width: 540px) {
+        .chapter-section .example-image[data-height-1] {
+          height: 63px; } }
+    .chapter-section .example-image[data-height-2] {
+      height: 135px; }
+      @media all and (max-width: 540px) {
+        .chapter-section .example-image[data-height-2] {
+          height: 105px; } }
+    .chapter-section .example-image[data-height-3] {
+      height: 270px; }
+      @media all and (max-width: 540px) {
+        .chapter-section .example-image[data-height-3] {
+          height: 210px; } }
+    .chapter-section .example-image[data-height-4] {
+      height: 405px; }
+      @media all and (max-width: 540px) {
+        .chapter-section .example-image[data-height-4] {
+          height: 315px; } }
+    @media all and (max-width: 540px) {
+      .chapter-section .example-image {
+        height: 63px; } }
+  .chapter-section .mockup-image {
+    max-width: 50%;
+    height: auto; }
+    @media all and (max-width: 540px) {
+      .chapter-section .mockup-image {
+        max-width: 100%; } }
   .chapter-section .calc-fluid-wrapper {
     position: relative;
     width: 75%;
@@ -855,12 +860,13 @@ a {
         padding: 0 10.5px; } }
 
 .list-navigation-example {
-  -webkit-transition: all .5s ease-out;
-  transition: all .5s ease-out;
+  display: inline-block;
+  font-size: 0;
   margin-left: auto;
   margin-right: auto;
-  font-size: 0;
-  text-align: center; }
+  text-align: center;
+  background: #e0434e;
+  border-radius: 1ex; }
   .list-navigation-example.medium {
     width: 50%; }
   .list-navigation-example.small {
@@ -869,20 +875,21 @@ a {
     font-size: 18px;
     line-height: 27px;
     display: inline-block;
+    max-width: 100%;
     padding: 0 13.5px;
     color: #f2f2f2;
-    background: #e0434e;
     text-decoration: none;
     text-shadow: 1px 1px 0 #8c171f;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    user-select: none; }
+    user-select: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; }
     .list-navigation-example a:hover {
       background: #8c171f; }
-    .list-navigation-example a:first-of-type {
-      border-top-left-radius: 1ex;
-      border-bottom-left-radius: 1ex; }
-    .list-navigation-example a:last-of-type {
-      border-top-right-radius: 1ex;
-      border-bottom-right-radius: 1ex; }
+    @media all and (max-width: 540px) {
+      .list-navigation-example a {
+        font-size: 15px;
+        line-height: 31.5px; } }
