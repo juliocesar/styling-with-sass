@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <title>Sizing things ― Styling with Sass</title>
+    <title>Strategy ― Styling with Sass</title>
     <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="//cloud.typography.com/6225112/658766/css/fonts.css" />
     <link rel="stylesheet" href="stylesheets/manifest.css">
@@ -17,36 +17,33 @@
       </h1>
       <article>
         <p>
-          Resets and normalisations are agreements, and while they are certainly helpful, understanding their coverage really well is a good idea.</p>
+          Resets and normalisations are agreements, and while they are helpful, understanding their coverage well is a good idea.</p>
         <p>
-          You generally can’t go wrong with a reset since its purpose is simply getting rid of styling-by-accident, which is what happens when you rely on browser-given styles for something. A normalisation, whether it’s something introduced by <a href="http://necolas.github.io/normalize.css/">a library</a> (and in the case of Normalize.css, you can think of it as a less brutal reset) or one you write yourself, has no business existing unless it’s very likely to be the case that they will be applying across every element that they touch.
+          You generally can’t go wrong with a reset since its purpose is simply getting rid of unintended styling, which is what happens when you rely on browser-given styles for something. A normalisation, whether it’s something introduced by <a href="http://necolas.github.io/normalize.css/">a library</a> (and in the case of Normalize.css, you can think of it as a less brutal reset) or one you write yourself, has no business existing unless it’s likely that the rules will be applying to every element it references.
         </p>
         <p>
-          A common example of normalisation is when styling paragraphs within a component, deciding that it probably means adding a default font size and margins on a root <code class="language-scss">p</code> tag selector as a first step. The problem is knowing whether that agreement won’t, in fact, create more work than it’ll prevent (the all too common behaviour of then erasing those defaults more than not). As much else, a better approach is to <strong>mindfully</strong> repeat yourself a little and only then refactor when repetition starts happening to a small but significant level.
-        </p>
-        <p>
-          In short: always reset, but be careful with normalisations.
+          A common example of normalisation is when styling paragraphs within a component, deciding that it probably means adding a default font size and margins on a root <code class="language-scss">p</code> tag selector as a first step. The problem is knowing whether that agreement won’t, in fact, create more work than it’ll prevent (the all too common behaviour of then needing to re-reset those defaults more than not). As with much else, a better approach is to <strong>mindfully</strong> repeat yourself a little and only then refactor when repetition starts happening in a small but significant level.
         </p>
       </article>
       <article>
         <p>
-          If most people figured the correct way to drive is back-facing the wheel, that wouldn’t make it a good idea considering not colliding into things is important. This metaphor explains how most people understand and use the <strong>Cascading</strong> in <strong>Stylesheets</strong>. They’ll drive it backwards, hit something, and then go on Twitter say cars are inherently bad and that we all oughta be walking instead.
+          If most people figured the correct way to drive is back-facing the wheel, that wouldn’t make it a good idea considering not colliding into things is important. This metaphor explains how most people understand and use the <strong>Cascading</strong> in <strong>Stylesheets</strong>. They’ll drive it backwards, hit something, and then go on Twitter and say cars are inherently bad and that we all oughta be walking instead.
         </p>
         <p>
-          You need to control the cascading, and the best way to go about it is by not use it at first, and then apply it judiciously where it makes sense. It really is that simple. This has a big impact on further advice, so I’ll go on a little tangent here: early in the intro chapter, I referred to a SCSS file as a “module”. The approach to that which I’m selling here is as follows:
+          Cascading needs control, and the best way to go about it is not using it at first , and then applying it judiciously where it makes sense. This has a big impact on further advice, so I’ll go on a little tangent here: early in the intro chapter, I referred to a SCSS file as a “module”. What I mean is:
         </p>
         <ul>
           <li>
             Each file/module will “export” <strong>one</strong> class selector, which maps to a given UI component, or an area in the screen. To keep things intuitive, the file name will match the selector name.
           </li>
           <li>
-            This selector will contain other selectors <strong>a maximum of one level deep</strong>. The purpose of that is allowing us to scope styling to the component, not to replicate the markup’s structure, which would do us a disservice.
+            This selector will contain other selectors <strong>a maximum of one level deep</strong>. The purpose of that is allowing us to scope styling to the component’s root selector, and <strong>not</strong> to replicate the markup’s structure, which would do us a disservice.
           </li>
           <li>
             In this file, besides styles relevant only to the component, we’ll also keep variables and media queries that apply to it.
           </li>
           <li>
-            As internal parts of a component become more complex, we move them into their own files.
+            As internal parts (selectors) of a component become more complex, we move them into their own files.
           </li>
         </ul>
         <p>
@@ -120,6 +117,9 @@
         </ul>
         <p>
           It’s impressive how such a small component can yield this many questions, but thinking through these creates design that’s better at solving problems, which helps you avoid paying later with interest for what you don’t foresee initially only because you failed to address the basics.
+        </p>
+        <p>
+          When not working around browser bugs, as in actual bugs and not defects in comprehension of how things work, hacks are the fruit of weak implementations that fail to address all the feature-questions such as the aforementioned ones.
         </p>
       </article>
       <article>
@@ -219,7 +219,7 @@
       </article>
       <article>
         <p>
-          An easy to forego element when implementing a design is colour organisation. There’s a false sense of necessity when it comes to it that leads to sometimes dozens of imperceptible variations if put next to each other. That’s aggravated when a designer loses sight of the whole.
+          An easy to forgo element when implementing a design is colour organisation. There’s a false sense of necessity when it comes to it that leads to sometimes dozens of imperceptible variations if put next to each other. That’s aggravated when a designer loses sight of the whole.
         </p>
         <p>
           Colour, like the choice of typeset, is part of the message, and dillution happens when too many tones are introduced in a design. And a way to keep the issue visible is declaring the palette in a single file through variables, maybe named <code class="language-scss">colour-palette.scss</code>, and using it as a dependency. Like so:
