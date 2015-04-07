@@ -1,5 +1,35 @@
 ###
 
+One of the inheritances from the times a browser’s main purpose was to read documents is the concept of lines. This will be relevant to any component that has text in it.
+
+The controversially named `vertical-align` attribute works on lines, not blocks. That’s extremely confusing since most expect it to just do what the name says. Fact is it is doing that, but it lets you change the vertical alignment of text *within a line*.
+
+To make this clear, look at this example.
+
+    Foo bar baz (units(2) height, font-size(1))
+
+The default value for `vertical-align` is `baseline`, which in short it means the text will appear around the bottom of the line height. This is what happens when we change it to `top`:
+
+    Show top
+
+A container’s `height` won’t help you getting there, since as explained, `vertical-align` applies to the line height and not it. So in the container below, despite we setting `vertical-align: top`, it won’t work as expected:
+
+    Container with units(2) height, units(1) line height
+
+Knowing this is useful for patterns such as menus with text-looking buttons, where the buttons are vertically centered:
+
+    Example top menu
+
+Now, you may then be inclined to think that the solution for vertically centering text is setting the line height to the same as the container height, but there’s a nuance to that: should the text span to two lines, the line break will look horrible:
+
+    Example
+
+This being the case, you’re better off using either flexbox (while still keeping a sane line height set), or hack it for older browsers emulating a `<table>` with `display: table` and setting it’s vertical alignment to `middle`.
+
+Yes, the exception to the point made thus far is `vertical-align` works differently on tables. Read: as you’d expect.
+
+###
+
 In practice, there are two main ways you can position an element: in-grid and off-grid. In-grid means the element will push other elements around with its dimensions, while positioning an element off grid means whatever is the `top` and `left` values you give to it will be where the element will appear, and multiple off-grid elements will stack on top of each other, the last on top of the  first, in the order they’re written in the markup, unless overridden by a `z-index` directive.
 
 For in-grid elements, having flexbox available changes everything because flexbox will give you full control over where to render anything without you needing to compromise on much, if at all. So while it’s relevant to the topic, there are guides out there that are wholly dedicated to it that are better suited to teaching flexbox specifically. In here, only comparisons will be covered where appropriate.
